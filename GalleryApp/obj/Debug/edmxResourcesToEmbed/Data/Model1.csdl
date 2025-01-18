@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gallerydatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Art">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="genre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idTypeSize" Type="Int32" Nullable="false" />
+    <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="idExibition" Type="Int32" Nullable="false" />
+    <Property Name="Decription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="PhotoName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="IdWorker" Type="Int32" />
+    <NavigationProperty Name="Exibition" Relationship="Self.FK_Art_Exibition" FromRole="Art" ToRole="Exibition" />
+    <NavigationProperty Name="TypeSize" Relationship="Self.FK_Art_TypeSize" FromRole="Art" ToRole="TypeSize" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK_Art_Workers" FromRole="Art" ToRole="Workers" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Art" FromRole="Art" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Birth" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Clients" FromRole="Clients" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Exibition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_Art_Exibition" FromRole="Exibition" ToRole="Art" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="IdClient" Type="Int32" Nullable="false" />
+    <Property Name="IdArt" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdShippingType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_Order_Art" FromRole="Order" ToRole="Art" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Order_Clients" FromRole="Order" ToRole="Clients" />
+    <NavigationProperty Name="ShippingType" Relationship="Self.FK_Order_ShippingType" FromRole="Order" ToRole="ShippingType" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK_Workers_Position" FromRole="Position" ToRole="Workers" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK_Workers_Role" FromRole="Role" ToRole="Workers" />
+  </EntityType>
+  <EntityType Name="ShippingType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_ShippingType" FromRole="ShippingType" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeSize">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Size" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_Art_TypeSize" FromRole="TypeSize" ToRole="Art" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="idPosition" Type="Int32" Nullable="false" />
+    <Property Name="idRole" Type="Int32" Nullable="false" />
+    <Property Name="Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Birth" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_Art_Workers" FromRole="Workers" ToRole="Art" />
+    <NavigationProperty Name="Position" Relationship="Self.FK_Workers_Position" FromRole="Workers" ToRole="Position" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Workers_Role" FromRole="Workers" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Art_Exibition">
+    <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
+    <End Role="Art" Type="Self.Art" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exibition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Art">
+        <PropertyRef Name="idExibition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Art_TypeSize">
+    <End Role="TypeSize" Type="Self.TypeSize" Multiplicity="1" />
+    <End Role="Art" Type="Self.Art" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeSize">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Art">
+        <PropertyRef Name="idTypeSize" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Art_Workers">
+    <End Role="Workers" Type="Self.Workers" Multiplicity="0..1" />
+    <End Role="Art" Type="Self.Art" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Art">
+        <PropertyRef Name="IdWorker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Art">
+    <End Role="Art" Type="Self.Art" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Art">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdArt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_ShippingType">
+    <End Role="ShippingType" Type="Self.ShippingType" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShippingType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdShippingType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workers_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="1" />
+    <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="idPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workers_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Workers" Type="Self.Workers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="idRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gallerydatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Art" EntityType="Self.Art" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="Exibition" EntityType="Self.Exibition" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="Position" EntityType="Self.Position" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="ShippingType" EntityType="Self.ShippingType" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TypeSize" EntityType="Self.TypeSize" />
+    <EntitySet Name="Workers" EntityType="Self.Workers" />
+    <AssociationSet Name="FK_Art_Exibition" Association="Self.FK_Art_Exibition">
+      <End Role="Exibition" EntitySet="Exibition" />
+      <End Role="Art" EntitySet="Art" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Art_TypeSize" Association="Self.FK_Art_TypeSize">
+      <End Role="TypeSize" EntitySet="TypeSize" />
+      <End Role="Art" EntitySet="Art" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Art_Workers" Association="Self.FK_Art_Workers">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Art" EntitySet="Art" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Art" Association="Self.FK_Order_Art">
+      <End Role="Art" EntitySet="Art" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Clients" Association="Self.FK_Order_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ShippingType" Association="Self.FK_Order_ShippingType">
+      <End Role="ShippingType" EntitySet="ShippingType" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workers_Position" Association="Self.FK_Workers_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Workers" EntitySet="Workers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workers_Role" Association="Self.FK_Workers_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Workers" EntitySet="Workers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
