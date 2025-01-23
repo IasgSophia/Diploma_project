@@ -36,6 +36,8 @@
           <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Birth" Type="date" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Exibition">
           <Key>
@@ -111,6 +113,8 @@
           <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Birth" Type="date" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <Association Name="FK_Art_Exibition">
           <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
@@ -292,6 +296,8 @@
           <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Birth" Type="DateTime" Precision="0" />
+          <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Clients" FromRole="Clients" ToRole="Order" />
         </EntityType>
         <EntityType Name="Exibition">
@@ -376,6 +382,8 @@
           <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Birth" Type="DateTime" Precision="0" />
+          <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Art" Relationship="Self.FK_Art_Workers" FromRole="Workers" ToRole="Art" />
           <NavigationProperty Name="Position" Relationship="Self.FK_Workers_Position" FromRole="Workers" ToRole="Position" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Workers_Role" FromRole="Workers" ToRole="Role" />
@@ -557,6 +565,8 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Birth" ColumnName="Birth" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -640,6 +650,8 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Birth" ColumnName="Birth" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

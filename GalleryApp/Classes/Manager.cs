@@ -11,7 +11,20 @@ namespace GalleryApp.Classes
     internal class Manager
     {
         public static Frame MainFrame { get; set; }
-        public static Data.Workers CurrentUser { get; set; }
+
+        public interface IUser
+        {
+            int Id { get; set; }
+            string FirstName { get; set; }
+            string MiddleName { get; set; }
+            string LastName { get; set; }
+            string Login { get; set; }
+            string Password { get; set; }
+            string PasswordHash { get; set; }
+            string PasswordSalt { get; set; }
+        }
+
+        public static IUser CurrentUser { get; set; }
         public static void GetImageDate()
         {
             var list = Data.gallerydatabaseEntities.GetContext().Art.ToList();

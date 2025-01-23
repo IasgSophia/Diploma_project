@@ -45,18 +45,18 @@ namespace GalleryApp.Pages
                     return;
                 }
 
-
+               
                 if (Data.gallerydatabaseEntities.GetContext().Workers
-                    .Any(d => d.Login == LoginTextBox.Text &&
+                    .Any(d => d.Login.ToLower() == LoginTextBox.Text.ToLower() &&
                     d.Password == PasswordBox.Password))
                 {
                     var user = Data.gallerydatabaseEntities.GetContext().Workers
-                    .Where(d => d.Login == LoginTextBox.Text &&
+                    .Where(d => d.Login.ToLower() == LoginTextBox.Text.ToLower() &&
                     d.Password == PasswordBox.Password).FirstOrDefault();
 
                     Classes.Manager.CurrentUser = user;
 
-                    MessageBox.Show("Успех!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("вы вошли, как работник", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     switch (user.Role.Name)
                     {
@@ -64,13 +64,26 @@ namespace GalleryApp.Pages
                             Classes.Manager.MainFrame.Navigate(new Pages.ContentPageAdmin());
                             break;
                         case "Сотрудник":
-                            Classes.Manager.MainFrame.Navigate(new Pages.ContentPage());
+                            Classes.Manager.MainFrame.Navigate(new Pages.ContentPageManager());
                             break;
                     }
                 }
+                else if (Data.gallerydatabaseEntities.GetContext().Clients
+                    .Any(d => d.Login == LoginTextBox.Text &&
+                    d.Password == PasswordBox.Password))
+                {
+                    var user = Data.gallerydatabaseEntities.GetContext().Clients
+                    .Where(d => d.Login == LoginTextBox.Text &&
+                    d.Password == PasswordBox.Password).FirstOrDefault();
+
+                    Classes.Manager.CurrentUser = user;
+
+                    MessageBox.Show("вы вошли, как пользователь", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPage());
+                }
                 else
                 {
-                    
+                    MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             }

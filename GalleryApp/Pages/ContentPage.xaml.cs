@@ -86,7 +86,7 @@ namespace GalleryApp.Pages
                 var selected = SizeTypeComboBox.SelectedItem as Data.TypeSize;
                 if (selected != null && selected.Size != "Все размеры")
                 {
-                    _products = _products.Where(d => d.id == selected.Id).ToList();
+                    _products = _products.Where(d => d.idTypeSize == selected.Id).ToList();
                 }
 
                 CountOfLabel.Content = $"{_products.Count}/" +
@@ -139,6 +139,11 @@ namespace GalleryApp.Pages
         private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Update();
+        }
+
+        private void ExhibitionFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -29,11 +29,7 @@ namespace GalleryApp.Data
             return _context;
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
+
         public virtual DbSet<Art> Art { get; set; }
         public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<Exibition> Exibition { get; set; }

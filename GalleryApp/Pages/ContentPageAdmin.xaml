@@ -82,9 +82,8 @@
                             <TextBlock Text="{Binding title, StringFormat={}Название: {0}}" ></TextBlock>
                             <TextBlock Text="{Binding author, StringFormat={}Автор: {0}}"></TextBlock>
                             <TextBlock Text="{Binding size, StringFormat={}Размер: {0}}"></TextBlock>
-                            <TextBlock Text="{Binding size, StringFormat={}Цена: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding price, StringFormat={}Цена: {0}}"></TextBlock>
                         </StackPanel>
-                        <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click"  Grid.Column="2"></Button>
 
                     </Grid>
                 </DataTemplate>
@@ -93,8 +92,6 @@
 
         <Button x:Name="BackButton" Content="Назад" HorizontalAlignment="Left"
                 Click="BackButton_Click"  Grid.Row="3"></Button>
-        <Button x:Name="AddButton" Content="Добавить" HorizontalAlignment="Right"
-                Click="AddButton_Click"  Grid.Row="3"></Button>
 
     </Grid>
 </Page>

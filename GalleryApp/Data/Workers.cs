@@ -9,10 +9,11 @@
 
 namespace GalleryApp.Data
 {
+    using GalleryApp.Classes;
     using System;
     using System.Collections.Generic;
     
-    public partial class Workers
+    public partial class Workers : Manager.IUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Workers()
@@ -31,6 +32,8 @@ namespace GalleryApp.Data
         public string Login { get; set; }
         public string Password { get; set; }
         public Nullable<System.DateTime> Birth { get; set; }
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Art> Art { get; set; }

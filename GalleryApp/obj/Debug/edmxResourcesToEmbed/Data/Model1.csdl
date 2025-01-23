@@ -35,6 +35,8 @@
     <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Birth" Type="DateTime" Precision="0" />
+    <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Order_Clients" FromRole="Clients" ToRole="Order" />
   </EntityType>
   <EntityType Name="Exibition">
@@ -119,6 +121,8 @@
     <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Birth" Type="DateTime" Precision="0" />
+    <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Art" Relationship="Self.FK_Art_Workers" FromRole="Workers" ToRole="Art" />
     <NavigationProperty Name="Position" Relationship="Self.FK_Workers_Position" FromRole="Workers" ToRole="Position" />
     <NavigationProperty Name="Role" Relationship="Self.FK_Workers_Role" FromRole="Workers" ToRole="Role" />

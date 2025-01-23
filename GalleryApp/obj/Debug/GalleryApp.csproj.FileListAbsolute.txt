@@ -28,3 +28,7 @@ C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.c
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.exe
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.pdb
+C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
+C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\ContentPageManager.g.cs
+C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
+C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\ContentPageManager.baml

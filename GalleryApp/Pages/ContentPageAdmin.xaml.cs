@@ -85,7 +85,7 @@ namespace GalleryApp.Pages
                 var selected = SizeTypeComboBox.SelectedItem as Data.TypeSize;
                 if (selected != null && selected.Size != "Все размеры")
                 {
-                    _products = _products.Where(d => d.id == selected.Id).ToList();
+                    _products = _products.Where(d => d.idTypeSize == selected.Id).ToList();
                 }
 
                 CountOfLabel.Content = $"{_products.Count}/" +
@@ -107,10 +107,6 @@ namespace GalleryApp.Pages
 
 
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Classes.Manager.MainFrame.Navigate(new Pages.AddEditProductPage((sender as Button).DataContext as Data.Art));
-        }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -127,15 +123,6 @@ namespace GalleryApp.Pages
             Update();
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Classes.Manager.MainFrame.Navigate(new Pages.AddEditProductPage(null));
-        }
-        private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Update();
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Classes.Manager.MainFrame.CanGoBack)
@@ -146,6 +133,16 @@ namespace GalleryApp.Pages
                 }
                 Classes.Manager.MainFrame.GoBack();
             }
+        }
+
+        private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private void ExhibitionFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

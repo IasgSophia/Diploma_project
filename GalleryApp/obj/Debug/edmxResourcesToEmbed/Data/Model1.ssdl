@@ -31,6 +31,8 @@
     <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Birth" Type="date" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="Exibition">
     <Key>
@@ -106,6 +108,8 @@
     <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Birth" Type="date" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <Association Name="FK_Art_Exibition">
     <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
