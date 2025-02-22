@@ -111,7 +111,7 @@
     <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
     <Property Name="PasswordSalt" Type="nvarchar" MaxLength="256" />
   </EntityType>
-  <Association Name="FK_Art_Exibition">
+  <Association Name="FK_product_Exibition">
     <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -123,7 +123,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Art_TypeSize">
+  <Association Name="FK_product_TypeSize">
     <End Role="TypeSize" Type="Self.TypeSize" Multiplicity="1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -135,7 +135,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Art_Workers">
+  <Association Name="FK_product_Workers">
     <End Role="Workers" Type="Self.Workers" Multiplicity="0..1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -147,7 +147,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Order_Art">
+  <Association Name="FK_Order_product">
     <End Role="Art" Type="Self.Art" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
@@ -218,19 +218,19 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypeSize" EntityType="Self.TypeSize" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Art_Exibition" Association="Self.FK_Art_Exibition">
+    <AssociationSet Name="FK_product_Exibition" Association="Self.FK_product_Exibition">
       <End Role="Exibition" EntitySet="Exibition" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Art_TypeSize" Association="Self.FK_Art_TypeSize">
+    <AssociationSet Name="FK_product_TypeSize" Association="Self.FK_product_TypeSize">
       <End Role="TypeSize" EntitySet="TypeSize" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Art_Workers" Association="Self.FK_Art_Workers">
+    <AssociationSet Name="FK_product_Workers" Association="Self.FK_product_Workers">
       <End Role="Workers" EntitySet="Workers" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Order_Art" Association="Self.FK_Order_Art">
+    <AssociationSet Name="FK_Order_product" Association="Self.FK_Order_product">
       <End Role="Art" EntitySet="Art" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>

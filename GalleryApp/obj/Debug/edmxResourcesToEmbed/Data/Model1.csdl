@@ -17,10 +17,10 @@
     <Property Name="ProductPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="IdWorker" Type="Int32" />
-    <NavigationProperty Name="Exibition" Relationship="Self.FK_Art_Exibition" FromRole="Art" ToRole="Exibition" />
-    <NavigationProperty Name="TypeSize" Relationship="Self.FK_Art_TypeSize" FromRole="Art" ToRole="TypeSize" />
-    <NavigationProperty Name="Workers" Relationship="Self.FK_Art_Workers" FromRole="Art" ToRole="Workers" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Art" FromRole="Art" ToRole="Order" />
+    <NavigationProperty Name="Exibition" Relationship="Self.FK_product_Exibition" FromRole="Art" ToRole="Exibition" />
+    <NavigationProperty Name="TypeSize" Relationship="Self.FK_product_TypeSize" FromRole="Art" ToRole="TypeSize" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK_product_Workers" FromRole="Art" ToRole="Workers" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_product" FromRole="Art" ToRole="Order" />
   </EntityType>
   <EntityType Name="Clients">
     <Key>
@@ -48,7 +48,7 @@
     <Property Name="Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Art" Relationship="Self.FK_Art_Exibition" FromRole="Exibition" ToRole="Art" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_product_Exibition" FromRole="Exibition" ToRole="Art" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -60,7 +60,7 @@
     <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Adress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IdShippingType" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Art" Relationship="Self.FK_Order_Art" FromRole="Order" ToRole="Art" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_Order_product" FromRole="Order" ToRole="Art" />
     <NavigationProperty Name="Clients" Relationship="Self.FK_Order_Clients" FromRole="Order" ToRole="Clients" />
     <NavigationProperty Name="ShippingType" Relationship="Self.FK_Order_ShippingType" FromRole="Order" ToRole="ShippingType" />
   </EntityType>
@@ -104,7 +104,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="Size" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Art" Relationship="Self.FK_Art_TypeSize" FromRole="TypeSize" ToRole="Art" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_product_TypeSize" FromRole="TypeSize" ToRole="Art" />
   </EntityType>
   <EntityType Name="Workers">
     <Key>
@@ -123,11 +123,11 @@
     <Property Name="Birth" Type="DateTime" Precision="0" />
     <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="PasswordSalt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Art" Relationship="Self.FK_Art_Workers" FromRole="Workers" ToRole="Art" />
+    <NavigationProperty Name="Art" Relationship="Self.FK_product_Workers" FromRole="Workers" ToRole="Art" />
     <NavigationProperty Name="Position" Relationship="Self.FK_Workers_Position" FromRole="Workers" ToRole="Position" />
     <NavigationProperty Name="Role" Relationship="Self.FK_Workers_Role" FromRole="Workers" ToRole="Role" />
   </EntityType>
-  <Association Name="FK_Art_Exibition">
+  <Association Name="FK_product_Exibition">
     <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -139,7 +139,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Art_TypeSize">
+  <Association Name="FK_product_TypeSize">
     <End Role="TypeSize" Type="Self.TypeSize" Multiplicity="1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -151,7 +151,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Art_Workers">
+  <Association Name="FK_product_Workers">
     <End Role="Workers" Type="Self.Workers" Multiplicity="0..1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
     <ReferentialConstraint>
@@ -163,7 +163,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Order_Art">
+  <Association Name="FK_Order_product">
     <End Role="Art" Type="Self.Art" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
@@ -234,19 +234,19 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="TypeSize" EntityType="Self.TypeSize" />
     <EntitySet Name="Workers" EntityType="Self.Workers" />
-    <AssociationSet Name="FK_Art_Exibition" Association="Self.FK_Art_Exibition">
+    <AssociationSet Name="FK_product_Exibition" Association="Self.FK_product_Exibition">
       <End Role="Exibition" EntitySet="Exibition" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Art_TypeSize" Association="Self.FK_Art_TypeSize">
+    <AssociationSet Name="FK_product_TypeSize" Association="Self.FK_product_TypeSize">
       <End Role="TypeSize" EntitySet="TypeSize" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Art_Workers" Association="Self.FK_Art_Workers">
+    <AssociationSet Name="FK_product_Workers" Association="Self.FK_product_Workers">
       <End Role="Workers" EntitySet="Workers" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Order_Art" Association="Self.FK_Order_Art">
+    <AssociationSet Name="FK_Order_product" Association="Self.FK_Order_product">
       <End Role="Art" EntitySet="Art" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>

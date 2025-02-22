@@ -15,10 +15,10 @@
         <EntityTypeShape EntityType="gallerydatabaseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="gallerydatabaseModel.TypeSize" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gallerydatabaseModel.Workers" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Art_Exibition" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Art_TypeSize" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Art_Workers" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Order_Art" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_product_Exibition" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_product_TypeSize" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_product_Workers" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Order_product" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_Clients" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_ShippingType" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Workers_Position" ManuallyRouted="false" />

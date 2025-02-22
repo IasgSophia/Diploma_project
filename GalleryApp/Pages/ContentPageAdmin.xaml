@@ -84,6 +84,8 @@
                             <TextBlock Text="{Binding size, StringFormat={}Размер: {0}}"></TextBlock>
                             <TextBlock Text="{Binding price, StringFormat={}Цена: {0}}"></TextBlock>
                         </StackPanel>
+                        <Button Grid.Column="2" Content="редактировать" x:Name="EditButton" Width="100" Height="30" Click="EditButton_Click" HorizontalAlignment="left"></Button>
+
 
                     </Grid>
                 </DataTemplate>

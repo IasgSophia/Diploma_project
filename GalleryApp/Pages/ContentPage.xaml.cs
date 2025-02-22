@@ -55,17 +55,17 @@ namespace GalleryApp.Pages
             catch { }
         }
 
-        public List<Data.Art> _products = Data.gallerydatabaseEntities.GetContext().Art.ToList();
+        public List<Data.Art> _product = Data.gallerydatabaseEntities.GetContext().Art.ToList();
 
         public void Update()
         {
             try
             {
-                _products = Data.gallerydatabaseEntities.GetContext().Art.ToList();
+                _product = Data.gallerydatabaseEntities.GetContext().Art.ToList();
 
                 if (!string.IsNullOrEmpty(SearchTextBox.Text))
                 {
-                    _products = (from item in Data.gallerydatabaseEntities.GetContext().Art.ToList()
+                    _product = (from item in Data.gallerydatabaseEntities.GetContext().Art.ToList()
                                  where item.title.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
                                  item.author.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
                                  item.genre.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
@@ -75,24 +75,24 @@ namespace GalleryApp.Pages
                 }
                 if (SortUpRadioButton.IsChecked == true)
                 {
-                    _products = _products.OrderBy(d => d.price).ToList();
+                    _product = _product.OrderBy(d => d.price).ToList();
                 }
 
                 if (SortDownRadioButton.IsChecked == true)
                 {
-                    _products = _products.OrderByDescending(d => d.price).ToList();
+                    _product = _product.OrderByDescending(d => d.price).ToList();
                 }
 
                 var selected = SizeTypeComboBox.SelectedItem as Data.TypeSize;
                 if (selected != null && selected.Size != "Все размеры")
                 {
-                    _products = _products.Where(d => d.idTypeSize == selected.Id).ToList();
+                    _product = _product.Where(d => d.idTypeSize == selected.Id).ToList();
                 }
 
-                CountOfLabel.Content = $"{_products.Count}/" +
+                CountOfLabel.Content = $"{_product.Count}/" +
                      $"{Data.gallerydatabaseEntities.GetContext().Art.Count()}";
 
-                ProductsListView.ItemsSource = _products;                
+                ProductsListView.ItemsSource = _product;                
             }
             catch
             {
