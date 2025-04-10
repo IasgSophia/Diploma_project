@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GalleryApp.Data;
+using GalleryApp.Classes;
 
 namespace GalleryApp.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Page
     {
         public LoginPage()
@@ -45,53 +35,72 @@ namespace GalleryApp.Pages
                     return;
                 }
 
-               
-                if (Data.gallerydatabaseEntities.GetContext().Workers
-                    .Any(d => d.Login.ToLower() == LoginTextBox.Text.ToLower() &&
-                    d.Password == PasswordBox.Password))
+                var user = Data.gallerydatabaseEntities.GetContext().Users
+                    .FirstOrDefault(u => u.Login.ToLower() == LoginTextBox.Text.ToLower());
+
+                if (user != null)
                 {
-                    var user = Data.gallerydatabaseEntities.GetContext().Workers
-                    .Where(d => d.Login.ToLower() == LoginTextBox.Text.ToLower() &&
-                    d.Password == PasswordBox.Password).FirstOrDefault();
+                    byte[] hashBytes = PasswordHelper.HashPassword(Encoding.UTF8.GetBytes(PasswordBox.Password), user.PasswordSalt);
 
-                    Classes.Manager.CurrentUser = user;
-
-                    MessageBox.Show("вы вошли, как работник", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    switch (user.Role.Name)
+                    if (hashBytes.SequenceEqual(user.PasswordHash))
                     {
-                        case "Администратор":
-                            Classes.Manager.MainFrame.Navigate(new Pages.ContentPageAdmin());
-                            break;
-                        case "Сотрудник":
-                            Classes.Manager.MainFrame.Navigate(new Pages.ContentPageManager());
-                            break;
+                        Classes.Manager.CurrentUser = user as Classes.Manager.IUser;
+
+                        var workerInfo = Data.gallerydatabaseEntities.GetContext().WorkerInfo
+                            .FirstOrDefault(w => w.Id == user.UserType);
+
+                        if (workerInfo == null)
+                        {
+                            MessageBox.Show("Не удалось определить роль пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var role = Data.gallerydatabaseEntities.GetContext().Role
+                            .FirstOrDefault(r => r.Id == workerInfo.IdRole);
+
+                        if (role == null)
+                        {
+                            MessageBox.Show("Роль пользователя не найдена.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        MessageBox.Show($"Вы вошли как {role.Name}", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        NavigateUser(role);
                     }
-                }
-                else if (Data.gallerydatabaseEntities.GetContext().Clients
-                    .Any(d => d.Login == LoginTextBox.Text &&
-                    d.Password == PasswordBox.Password))
-                {
-                    var user = Data.gallerydatabaseEntities.GetContext().Clients
-                    .Where(d => d.Login == LoginTextBox.Text &&
-                    d.Password == PasswordBox.Password).FirstOrDefault();
-
-                    Classes.Manager.CurrentUser = user;
-
-                    MessageBox.Show("вы вошли, как пользователь", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPage());
+                    else
+                    {
+                        MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+
+        private void NavigateUser(Role userrole)
+        {
+            switch (userrole.Name)
+            {
+                case "Сотрудник":
+                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageManager());
+                    break;
+                case "Пользователь":
+                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPage());
+                    break;
+                case "Администратор":
+                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageAdmin());
+                    break;
+                default:
+                    throw new Exception("Неизвестный тип пользователя.");
+            }
         }
     }
 }

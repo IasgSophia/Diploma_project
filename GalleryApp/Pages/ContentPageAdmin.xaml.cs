@@ -1,110 +1,164 @@
-﻿using System;
+﻿using GalleryApp.Classes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GalleryApp.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для ContentPageAdmin.xaml
-    /// </summary>
     public partial class ContentPageAdmin : Page
     {
+        private byte[] _defaultImage;
+
         public ContentPageAdmin()
         {
             InitializeComponent();
+            LoadDefaultImage();
             Init();
         }
-        public void Init()
+
+        private void LoadDefaultImage()
         {
             try
             {
-                ProductsListView.ItemsSource = Data.gallerydatabaseEntities.GetContext().Art.ToList();
+                var uri = new Uri("pack://application:,,,/Resources/smallcrow.png", UriKind.Absolute);
+                var resourceStream = Application.GetResourceStream(uri);
+
+                if (resourceStream != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        resourceStream.Stream.CopyTo(memoryStream);
+                        _defaultImage = memoryStream.ToArray();
+                    }
+                }
+            }
+            catch
+            {
+                _defaultImage = null;
+            }
+        }
+
+        public List<Data.Art> _product = new List<Data.Art>();
+
+        private void Init()
+        {
+            try
+            {
+                var products = Data.gallerydatabaseEntities.GetContext().Art.ToList();
+
+                foreach (var art in products)
+                {
+                    if (art.ProductPhoto == null || art.ProductPhoto.Length == 0)
+                        art.ProductPhoto = _defaultImage;
+                }
+
+                ProductsListView.ItemsSource = products;
+                _product = products;
+
                 var sizeTypeList = Data.gallerydatabaseEntities.GetContext().TypeSize.ToList();
                 sizeTypeList.Insert(0, new Data.TypeSize { Size = "Все размеры" });
                 SizeTypeComboBox.ItemsSource = sizeTypeList;
                 SizeTypeComboBox.SelectedIndex = 0;
 
-                if (Classes.Manager.CurrentUser != null)
+                var exhibitionList = Data.gallerydatabaseEntities.GetContext().Exibition.ToList();
+                exhibitionList.Insert(0, new Data.Exibition { Name = "Все выставки" });
+                ExhibitionFilterComboBox.ItemsSource = exhibitionList;
+                ExhibitionFilterComboBox.SelectedIndex = 0;
+
+                Console.WriteLine($"Количество выставок: {exhibitionList.Count}");
+
+                if (Manager.CurrentUser != null)
                 {
                     FIOLabel.Visibility = Visibility.Visible;
-                    FIOLabel.Content = $"{Classes.Manager.CurrentUser.LastName} " +
-                         $"{Classes.Manager.CurrentUser.FirstName} " +
-                         $"{Classes.Manager.CurrentUser.MiddleName} ";
+                    FIOLabel.Content = $"{Manager.CurrentUser.LastName} {Manager.CurrentUser.FirstName} {Manager.CurrentUser.MiddleName}";
+                    ProductsListView.Visibility = Visibility.Visible; 
+                    Update(); 
                 }
                 else
                 {
                     FIOLabel.Visibility = Visibility.Hidden;
                     ProductsListView.Visibility = Visibility.Hidden;
+                    CountOfLabel.Content = "0/0"; 
                 }
 
-                CountOfLabel.Content = $"{Data.gallerydatabaseEntities.GetContext().Art.Count()}/" +
-                     $"{Data.gallerydatabaseEntities.GetContext().Art.Count()}";
+                CountOfLabel.Content = $"{products.Count}/{products.Count}";
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        public List<Data.Art> _product = Data.gallerydatabaseEntities.GetContext().Art.ToList();
+
+
 
         public void Update()
+{
+    try
+    {
+        var context = Data.gallerydatabaseEntities.GetContext();
+
+        var products = context.Art.ToList();
+
+        if (!string.IsNullOrEmpty(SearchTextBox.Text))
         {
-            try
+            string search = SearchTextBox.Text.ToLower();
+            products = products.Where(item =>
+                item.title.ToLower().Contains(search) ||
+                item.author.ToLower().Contains(search) ||
+                item.genre.ToLower().Contains(search) ||
+                context.Exibition
+                    .Where(e => e.Id == item.idExibition)
+                    .Select(e => e.Name)
+                    .FirstOrDefault()
+                    .ToLower()
+                    .Contains(search)).ToList();
+        }
+
+        var selectedExhibition = ExhibitionFilterComboBox.SelectedItem as Data.Exibition;
+
+        if (selectedExhibition != null)
+        {
+            if (selectedExhibition.Name == "Все выставки")
             {
-                _product = Data.gallerydatabaseEntities.GetContext().Art.ToList();
-
-                if (!string.IsNullOrEmpty(SearchTextBox.Text))
-                {
-                    _product = (from item in Data.gallerydatabaseEntities.GetContext().Art.ToList()
-                                 where item.title.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.author.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.genre.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.Exibition.Name.ToString().ToLower().Contains(SearchTextBox.Text.ToLower())
-                                 select item).ToList();
-
-                }
-                if (SortUpRadioButton.IsChecked == true)
-                {
-                    _product = _product.OrderBy(d => d.price).ToList();
-                }
-
-                if (SortDownRadioButton.IsChecked == true)
-                {
-                    _product = _product.OrderByDescending(d => d.price).ToList();
-                }
-
-                var selected = SizeTypeComboBox.SelectedItem as Data.TypeSize;
-                if (selected != null && selected.Size != "Все размеры")
-                {
-                    _product = _product.Where(d => d.idTypeSize == selected.Id).ToList();
-                }
-
-                CountOfLabel.Content = $"{_product.Count}/" +
-                     $"{Data.gallerydatabaseEntities.GetContext().Art.Count()}";
-
-                ProductsListView.ItemsSource = _product;
+                products = context.Art.ToList();
             }
-            catch
+            else
             {
-
+                products = products.Where(p => p.idExibition == selectedExhibition.Id).ToList();
             }
         }
 
-
-        private void AuthorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        var selectedSizeType = SizeTypeComboBox.SelectedItem as Data.TypeSize;
+        if (selectedSizeType != null && selectedSizeType.Size != "Все размеры")
         {
-            Update();
+            products = products.Where(d => d.idTypeSize == selectedSizeType.Id).ToList();
         }
 
+        if (SortUpRadioButton.IsChecked == true)
+        {
+            products = products.OrderBy(d => d.price).ToList();
+        }
+        else if (SortDownRadioButton.IsChecked == true)
+        {
+            products = products.OrderByDescending(d => d.price).ToList();
+        }
+
+        CountOfLabel.Content = $"{products.Count}/{context.Art.Count()}";
+
+        ProductsListView.ItemsSource = products;
+        ProductsListView.Items.Refresh(); 
+
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+}
 
 
 
@@ -121,6 +175,69 @@ namespace GalleryApp.Pages
         private void SortDownRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             Update();
+        }   
+
+        private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private void ExhibitionFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedArt = (sender as Button)?.DataContext as Data.Art;
+            if (selectedArt != null)
+                Classes.Manager.MainFrame.Navigate(new Pages.AddEditProductPage(selectedArt));
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectedArt = (sender as Button)?.DataContext as Data.Art;
+                if (selectedArt != null)
+                {
+                    var result = MessageBox.Show("Вы уверены, что хотите удалить это произведение?",
+                                                  "Подтверждение удаления",
+                                                  MessageBoxButton.YesNo,
+                                                  MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var context = Data.gallerydatabaseEntities.GetContext();
+                        var artToDelete = context.Art.FirstOrDefault(a => a.id == selectedArt.id);
+                        if (artToDelete != null)
+                        {
+                            context.Art.Remove(artToDelete);
+                            context.SaveChanges();
+
+                            Update();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, выберите произведение для удаления.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении: {ex.Message}");
+            }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditProductPage(null));
+        }
+
+        private void AddUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.MainFrame.Navigate(new Pages.AddEditAccountsPage());
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -133,21 +250,6 @@ namespace GalleryApp.Pages
                 }
                 Classes.Manager.MainFrame.GoBack();
             }
-        }
-
-        private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Update();
-        }
-
-        private void ExhibitionFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            Classes.Manager.MainFrame.Navigate(new Pages.AddEditProductPage((sender as Button).DataContext as Data.Art));
         }
     }
 }

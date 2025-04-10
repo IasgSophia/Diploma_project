@@ -40,6 +40,9 @@ namespace GalleryApp.Pages
             try
             {
                 SizeTypeComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().TypeSize.ToList();
+                SizeTypeComboBox.DisplayMemberPath = "Size";
+
+                ExhibitionComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().Exibition.ToList();
 
                 if (!IsEditMode)
                 {
@@ -51,7 +54,7 @@ namespace GalleryApp.Pages
                     SizeTextBox.Text = "";
                     SizeTypeComboBox.SelectedItem = null;
                     PriceTextBox.Text = "";
-                    ExibitionTextBox.Text = "";
+                    ExhibitionComboBox.SelectedItem = null;  
                     DescriptionTextBox.Text = "";
 
                     FlagPhoto = false;
@@ -75,14 +78,23 @@ namespace GalleryApp.Pages
 
                     var exhibition = Data.gallerydatabaseEntities.GetContext().Exibition
                         .FirstOrDefault(e => e.Id == CurrentArt.idExibition);
-                    ExibitionTextBox.Text = exhibition?.Name ?? "Неизвестно";
+                    ExhibitionComboBox.SelectedItem = exhibition;
 
                     DescriptionTextBox.Text = CurrentArt.Decription;
 
-                    if (!string.IsNullOrEmpty(CurrentArt.PhotoName))
+                    if (CurrentArt.ProductPhoto != null && CurrentArt.ProductPhoto.Length > 0)
                     {
-                        PhotoImage.Source = new BitmapImage(new Uri(CurrentArt.PhotoName, UriKind.RelativeOrAbsolute));
-                        FlagPhoto = true;
+                        using (var ms = new MemoryStream(CurrentArt.ProductPhoto))
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = ms;
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.EndInit();
+
+                            PhotoImage.Source = bitmapImage;
+                            FlagPhoto = true;
+                        }
                     }
                     else
                     {
@@ -97,10 +109,18 @@ namespace GalleryApp.Pages
             }
         }
 
+
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (Classes.Manager.MainFrame.CanGoBack)
+            {
+                if (Classes.Manager.CurrentUser != null)
+                {
+                    Classes.Manager.CurrentUser = null;
+                }
                 Classes.Manager.MainFrame.GoBack();
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -118,17 +138,14 @@ namespace GalleryApp.Pages
                 if (string.IsNullOrWhiteSpace(GenreTextBox.Text))
                     errors.AppendLine("Заполните жанр");
 
-                if (!int.TryParse(SizeTextBox.Text, out int size) || size <= 0)
-                    errors.AppendLine("Размер должен быть положительным числом");
-
                 if (SizeTypeComboBox.SelectedItem == null)
                     errors.AppendLine("Выберите тип размера");
 
                 if (!decimal.TryParse(PriceTextBox.Text, out decimal price) || price < 0)
                     errors.AppendLine("Цена должна быть положительным числом");
 
-                if (string.IsNullOrWhiteSpace(ExibitionTextBox.Text))
-                    errors.AppendLine("Заполните выставку");
+                if (ExhibitionComboBox.SelectedItem == null)
+                    errors.AppendLine("Выберите выставку");
 
                 if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text))
                     errors.AppendLine("Заполните описание");
@@ -145,23 +162,40 @@ namespace GalleryApp.Pages
                 CurrentArt.title = TitleTextBox.Text;
                 CurrentArt.author = AuthorTextBox.Text;
                 CurrentArt.genre = GenreTextBox.Text;
-                CurrentArt.size = size.ToString();
+                CurrentArt.size = SizeTextBox.Text;
                 CurrentArt.price = price;
                 CurrentArt.Decription = DescriptionTextBox.Text;
 
                 var selectedSize = (Data.TypeSize)SizeTypeComboBox.SelectedItem;
                 CurrentArt.idTypeSize = selectedSize.Id;
 
-                var exhibition = Data.gallerydatabaseEntities.GetContext().Exibition
-                    .FirstOrDefault(ex => ex.Name == ExibitionTextBox.Text);
-                if (exhibition != null)
+                var selectedExhibition = (Data.Exibition)ExhibitionComboBox.SelectedItem;
+                if (selectedExhibition != null)
                 {
-                    CurrentArt.idExibition = exhibition.Id;
+                    CurrentArt.idExibition = selectedExhibition.Id;
                 }
 
                 if (!IsEditMode)
                 {
                     Data.gallerydatabaseEntities.GetContext().Art.Add(CurrentArt);
+                }
+                else
+                {
+                    var existingArt = Data.gallerydatabaseEntities.GetContext().Art
+                        .FirstOrDefault(a => a.id == CurrentArt.id);
+                    if (existingArt != null)
+                    {
+                        existingArt.title = CurrentArt.title;
+                        existingArt.author = CurrentArt.author;
+                        existingArt.genre = CurrentArt.genre;
+                        existingArt.size = CurrentArt.size;
+                        existingArt.price = CurrentArt.price;
+                        existingArt.Decription = CurrentArt.Decription;
+                        existingArt.idTypeSize = CurrentArt.idTypeSize;
+                        existingArt.idExibition = CurrentArt.idExibition;
+                        existingArt.PhotoName = CurrentArt.PhotoName;
+                        existingArt.ProductPhoto = CurrentArt.ProductPhoto;
+                    }
                 }
 
                 Data.gallerydatabaseEntities.GetContext().SaveChanges();
@@ -172,6 +206,8 @@ namespace GalleryApp.Pages
                 MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
 
         private void PhotoImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -190,6 +226,16 @@ namespace GalleryApp.Pages
                     bitmapImage.EndInit();
 
                     CurrentArt.PhotoName = openFileDialog.FileName;
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        PngBitmapEncoder encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                        encoder.Save(ms);
+
+                        CurrentArt.ProductPhoto = ms.ToArray();
+                    }
+
                     PhotoImage.Source = bitmapImage;
                     FlagPhoto = true;
                 }
@@ -199,5 +245,7 @@ namespace GalleryApp.Pages
                 MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
     }
 }

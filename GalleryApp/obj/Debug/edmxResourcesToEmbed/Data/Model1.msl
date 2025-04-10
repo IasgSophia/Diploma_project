@@ -16,24 +16,7 @@
           <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
           <ScalarProperty Name="ProductPhoto" ColumnName="ProductPhoto" />
           <ScalarProperty Name="Comments" ColumnName="Comments" />
-          <ScalarProperty Name="IdWorker" ColumnName="IdWorker" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Clients">
-      <EntityTypeMapping TypeName="gallerydatabaseModel.Clients">
-        <MappingFragment StoreEntitySet="Clients">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Mail" ColumnName="Mail" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Login" ColumnName="Login" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Birth" ColumnName="Birth" />
-          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -52,7 +35,7 @@
       <EntityTypeMapping TypeName="gallerydatabaseModel.Order">
         <MappingFragment StoreEntitySet="Order">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
           <ScalarProperty Name="IdArt" ColumnName="IdArt" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Adress" ColumnName="Adress" />
@@ -103,22 +86,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Workers">
-      <EntityTypeMapping TypeName="gallerydatabaseModel.Workers">
-        <MappingFragment StoreEntitySet="Workers">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.Users">
+        <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="idPosition" ColumnName="idPosition" />
-          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="Birth" ColumnName="Birth" />
           <ScalarProperty Name="Mail" ColumnName="Mail" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="Login" ColumnName="Login" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Birth" ColumnName="Birth" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
           <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkerInfo">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.WorkerInfo">
+        <MappingFragment StoreEntitySet="WorkerInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

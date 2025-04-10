@@ -32,11 +32,11 @@ namespace GalleryApp.Data
         public string PhotoName { get; set; }
         public byte[] ProductPhoto { get; set; }
         public string Comments { get; set; }
-        public Nullable<int> IdWorker { get; set; }
+        public Nullable<int> IdUser { get; set; }
     
         public virtual Exibition Exibition { get; set; }
         public virtual TypeSize TypeSize { get; set; }
-        public virtual Workers Workers { get; set; }
+        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
     }

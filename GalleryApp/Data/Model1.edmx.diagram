@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f5d16a7e678a48b6bd6311ac66c49fed" Name="Diagram1">
-        <EntityTypeShape EntityType="gallerydatabaseModel.Art" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Clients" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Exibition" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Order" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+      <Diagram DiagramId="7246939728e145aab33b68a0e103e2be" Name="Diagram1">
+        <EntityTypeShape EntityType="gallerydatabaseModel.Art" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Exibition" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Order" Width="1.5" PointX="9.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gallerydatabaseModel.Position" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gallerydatabaseModel.Role" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.ShippingType" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.TypeSize" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Workers" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_product_Exibition" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_product_TypeSize" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_product_Workers" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Order_product" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Order_Clients" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.ShippingType" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.TypeSize" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Users" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.WorkerInfo" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Art_Exibition" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Art_TypeSize" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Art_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Order_Art" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_ShippingType" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Workers_Position" ManuallyRouted="false" />
-        <AssociationConnector Association="gallerydatabaseModel.FK_Workers_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_WorkerInfo_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_WorkerInfo_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Users_WorkerInfo" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

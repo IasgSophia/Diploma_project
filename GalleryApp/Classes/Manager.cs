@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace GalleryApp.Classes
@@ -19,12 +16,12 @@ namespace GalleryApp.Classes
             string MiddleName { get; set; }
             string LastName { get; set; }
             string Login { get; set; }
-            string Password { get; set; }
-            string PasswordHash { get; set; }
-            string PasswordSalt { get; set; }
+            byte[] PasswordHash { get; set; }
+            byte[] PasswordSalt { get; set; }
         }
 
         public static IUser CurrentUser { get; set; }
+
         public static void GetImageDate()
         {
             var list = Data.gallerydatabaseEntities.GetContext().Art.ToList();

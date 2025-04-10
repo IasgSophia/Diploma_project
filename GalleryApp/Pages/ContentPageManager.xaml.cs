@@ -65,11 +65,17 @@ namespace GalleryApp.Pages
                 if (!string.IsNullOrEmpty(SearchTextBox.Text))
                 {
                     _product = (from item in Data.gallerydatabaseEntities.GetContext().Art.ToList()
-                                 where item.title.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.author.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.genre.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
-                                 item.Exibition.Name.ToString().ToLower().Contains(SearchTextBox.Text.ToLower())
-                                 select item).ToList();
+                                where item.title.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
+                                      item.author.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
+                                      item.genre.ToLower().Contains(SearchTextBox.Text.ToLower()) ||
+                                      Data.gallerydatabaseEntities.GetContext().Exibition
+                                          .Where(e => e.Id == item.idExibition)
+                                          .Select(e => e.Name)
+                                          .FirstOrDefault()
+                                          .ToLower()
+                                          .Contains(SearchTextBox.Text.ToLower())
+                                select item).ToList();
+
 
                 }
                 if (SortUpRadioButton.IsChecked == true)

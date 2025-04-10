@@ -1,40 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
 using System.Security.Cryptography;
+using System.Text;
+using GalleryApp.Data;
+using System.Windows;
 
 namespace GalleryApp.Classes
 {
-    internal  class PasswordHelper
+    public static class PasswordHelper
     {
-        public static string HashPassword(string password, out string salt)
-        {            
-            byte[] saltBytes = new byte[16];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(saltBytes);
-            }
-            salt = Convert.ToBase64String(saltBytes);
-
-            using (var pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 100000))
-            {
-                byte[] hash = pbkdf2.GetBytes(32); 
-                return Convert.ToBase64String(hash);
-            }
-        }
-
-        public static bool VerifyPassword(string password, string salt, string hash)
+        public static byte[] GenerateSalt(int size = 16)
         {
-            byte[] saltBytes = Convert.FromBase64String(salt);
-            using (var pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 100000))
+            var rng = RandomNumberGenerator.Create();
+            var saltBytes = new byte[size];
+            rng.GetBytes(saltBytes);
+            return saltBytes;
+        }
+
+        public static byte[] HashPassword(byte[] passwordBytes, byte[] salt)
+        {
+            using (var sha256 = SHA256.Create())
             {
-                byte[] newHash = pbkdf2.GetBytes(32);
-                return Convert.ToBase64String(newHash) == hash;
+                var combined = passwordBytes.Concat(salt).ToArray();
+                return sha256.ComputeHash(combined);
             }
         }
+
+        public static void AddUser(string login, string password, int positionId, int roleId)
+        {
+            try
+            {
+                using (var context = gallerydatabaseEntities.GetContext())
+                {
+                    if (context.Users.Any(u => u.Login == login))
+                    {
+                        MessageBox.Show("Логин уже существует.");
+                        return;
+                    }
+
+                    byte[] salt = GenerateSalt();  
+                    byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                    byte[] hashBytes = HashPassword(passwordBytes, salt);  
+
+                    var newWorkerInfo = new WorkerInfo
+                    {
+                        IdPosition = positionId,
+                        IdRole = roleId
+                    };
+                    context.WorkerInfo.Add(newWorkerInfo);
+                    context.SaveChanges(); 
+
+                    var newUser = new Users
+                    {
+                        Login = login,
+                        PasswordHash = hashBytes,
+                        PasswordSalt = salt,
+                        FirstName = "First",
+                        MiddleName = "Middle",
+                        LastName = "Last",
+                        Mail = "example@mail.com",
+                        Phone = "123456789",
+                        Birth = DateTime.Now,
+                        UserType = newWorkerInfo.Id  
+                    };
+                    context.Users.Add(newUser);
+                    context.SaveChanges(); 
+
+                    MessageBox.Show("Пользователь успешно добавлен.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при добавлении пользователя: " + ex.Message);
+            }
+        }
+
+
     }
-    
 }

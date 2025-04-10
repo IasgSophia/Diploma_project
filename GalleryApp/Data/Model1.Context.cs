@@ -29,9 +29,12 @@ namespace GalleryApp.Data
             return _context;
         }
 
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
         public virtual DbSet<Art> Art { get; set; }
-        public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<Exibition> Exibition { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Position> Position { get; set; }
@@ -39,6 +42,7 @@ namespace GalleryApp.Data
         public virtual DbSet<ShippingType> ShippingType { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TypeSize> TypeSize { get; set; }
-        public virtual DbSet<Workers> Workers { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<WorkerInfo> WorkerInfo { get; set; }
     }
 }

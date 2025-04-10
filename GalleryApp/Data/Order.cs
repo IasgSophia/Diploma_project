@@ -15,14 +15,13 @@ namespace GalleryApp.Data
     public partial class Order
     {
         public int Id { get; set; }
-        public int IdClient { get; set; }
+        public int IdUser { get; set; }
         public int IdArt { get; set; }
         public string Comment { get; set; }
         public string Adress { get; set; }
         public int IdShippingType { get; set; }
     
         public virtual Art Art { get; set; }
-        public virtual Clients Clients { get; set; }
         public virtual ShippingType ShippingType { get; set; }
     }
 }

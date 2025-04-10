@@ -77,9 +77,6 @@
     <Compile Include="Data\Art.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Clients.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\Exibition.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -116,7 +113,10 @@
     <Compile Include="Data\TypeSize.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Workers.cs">
+    <Compile Include="Data\Users.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\WorkerInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
