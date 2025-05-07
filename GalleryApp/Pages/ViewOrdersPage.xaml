@@ -1,0 +1,67 @@
+﻿<Page x:Class="GalleryApp.Pages.ViewOrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GalleryApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="просмотр заказов">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <Label Content="Список заказов"
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold" />
+
+        <ListView x:Name="dataGridOrders" Grid.Row="1" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ArtName, StringFormat='Произведение: {0}'}" />
+                                <TextBlock Text="{Binding ShippingTypeName, StringFormat='Тип доставки: {0}'}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Adress, StringFormat='Адрес: {0}'}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Comment, StringFormat='Комментарий: {0}'}" TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <Button Grid.Column="2"
+        Content="Оформить документ"
+        Padding="5"
+        Margin="5"
+        Click="GenerateDocumentButton_Click"
+        CommandParameter="{Binding OrderEntity}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+            <Label x:Name="CountLabel" Content="Всего заказов: 0" VerticalAlignment="Center" FontWeight="Bold" />
+            <Button Content="Назад" Width="100" Margin="20,0,0,0" Click="BackButton_Click"/>
+            <Button Content="Оформить все документы" 
+            Padding="5"
+            Tag="{Binding}" 
+            Click="GenerateAllInvoicesButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

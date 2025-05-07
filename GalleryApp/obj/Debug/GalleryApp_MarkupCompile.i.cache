@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\diploma\GalleryApp\GalleryApp\App.xaml
-71024532644
+9555431171
 2367394133
-27942123421
-181261234817
-MainWindow.xaml;Pages\AddEditAccountsPage.xaml;Pages\AddEditProductPage.xaml;Pages\ContentPage.xaml;Pages\ContentPageAdmin.xaml;Pages\ContentPageManager.xaml;Pages\LoginPage.xaml;
+30-147427422
+20-1319024578
+MainWindow.xaml;Pages\AddEditAccountsPage.xaml;Pages\AddEditProductPage.xaml;Pages\CartPage.xaml;Pages\ContentPageUser.xaml;Pages\ContentPageAdmin.xaml;Pages\ContentPageManager.xaml;Pages\LoginPage.xaml;Pages\ViewOrdersPage.xaml;
 
 False
 

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:GalleryApp"
         mc:Ignorable="d"
         Title="{Binding ElementName=MainFrame, Path=Content.Title}" Height="450" Width="800" MinHeight="650" MinWidth="1000" WindowStartupLocation="CenterScreen">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -14,7 +15,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Image Source="resources\secondLogo.png" HorizontalAlignment="left" Margin="20,0,0,0"></Image>
-            <Image Source="resources\smallcrow_text.png" HorizontalAlignment="Center" ></Image>           
+            <TextBlock Text="маленькая ворона"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="{StaticResource JustBreatheFont}"
+                       FontSize="48" 
+                       Foreground="Black"/>       
+            
         </Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Center" Grid.Row="1" ></Frame>
         <Grid Grid.Row="2" Background="Black"></Grid>

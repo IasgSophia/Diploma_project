@@ -20,14 +20,10 @@ namespace GalleryApp.Pages
             try
             {
                 StringBuilder errors = new StringBuilder();
-                if (string.IsNullOrEmpty(LoginTextBox.Text))
-                {
+                if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
                     errors.AppendLine("Заполните логин");
-                }
-                if (string.IsNullOrEmpty(PasswordBox.Password))
-                {
+                if (string.IsNullOrWhiteSpace(PasswordBox.Password))
                     errors.AppendLine("Заполните пароль");
-                }
 
                 if (errors.Length > 0)
                 {
@@ -35,54 +31,49 @@ namespace GalleryApp.Pages
                     return;
                 }
 
-                var user = Data.gallerydatabaseEntities.GetContext().Users
+                var user = gallerydatabaseEntities.GetContext().Users
                     .FirstOrDefault(u => u.Login.ToLower() == LoginTextBox.Text.ToLower());
 
-                if (user != null)
-                {
-                    byte[] hashBytes = PasswordHelper.HashPassword(Encoding.UTF8.GetBytes(PasswordBox.Password), user.PasswordSalt);
-
-                    if (hashBytes.SequenceEqual(user.PasswordHash))
-                    {
-                        Classes.Manager.CurrentUser = user as Classes.Manager.IUser;
-
-                        var workerInfo = Data.gallerydatabaseEntities.GetContext().WorkerInfo
-                            .FirstOrDefault(w => w.Id == user.UserType);
-
-                        if (workerInfo == null)
-                        {
-                            MessageBox.Show("Не удалось определить роль пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-
-                        var role = Data.gallerydatabaseEntities.GetContext().Role
-                            .FirstOrDefault(r => r.Id == workerInfo.IdRole);
-
-                        if (role == null)
-                        {
-                            MessageBox.Show("Роль пользователя не найдена.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-
-                        MessageBox.Show($"Вы вошли как {role.Name}", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        NavigateUser(role);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
+                if (user == null)
                 {
                     MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+
+                byte[] hashBytes = PasswordHelper.HashPassword(Encoding.UTF8.GetBytes(PasswordBox.Password), user.PasswordSalt);
+                if (!hashBytes.SequenceEqual(user.PasswordHash))
+                {
+                    MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                Manager.CurrentUser = user; // без кастов к интерфейсу
+
+                var workerInfo = gallerydatabaseEntities.GetContext().WorkerInfo
+                    .FirstOrDefault(w => w.Id == user.UserType);
+                if (workerInfo == null)
+                {
+                    MessageBox.Show("Не удалось определить роль пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var role = gallerydatabaseEntities.GetContext().Role
+                    .FirstOrDefault(r => r.Id == workerInfo.IdRole);
+                if (role == null)
+                {
+                    MessageBox.Show("Роль пользователя не найдена.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show($"Вы вошли как {role.Name}", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigateUser(role);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
         private void NavigateUser(Role userrole)
@@ -93,7 +84,7 @@ namespace GalleryApp.Pages
                     Classes.Manager.MainFrame.Navigate(new Pages.ContentPageManager());
                     break;
                 case "Пользователь":
-                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPage());
+                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageUser());
                     break;
                 case "Администратор":
                     Classes.Manager.MainFrame.Navigate(new Pages.ContentPageAdmin());

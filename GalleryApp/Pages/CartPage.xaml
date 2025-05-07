@@ -1,0 +1,53 @@
+﻿<Page x:Class="GalleryApp.Pages.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GalleryApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Корзина">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="CartListView" Grid.Row="0" Margin="0,0,0,10" ItemsSource="{Binding CartItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="{Binding title}" Width="200"/>
+                        <TextBlock Text="{Binding author}" Width="200"/>
+                        <TextBlock Text="{Binding genre}" Width="200"/>
+                        <Image Width="100" Height="100">
+                            <Image.Source>
+                                <Binding Path="ProductPhoto">
+                                    <Binding.TargetNullValue>
+                                        <BitmapImage UriSource="/Resources/smallcrow.png"/>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock Text="{Binding price}" Width="100"/>
+                        <Button Content="Удалить" Click="RemoveButton_Click" CommandParameter="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Label x:Name="UserInfoLabel" Content="ФИО пользователя" FontSize="16" Margin="0,5" Visibility="Hidden"/>
+            <Label Content="Комментарий" />
+            <TextBox x:Name="CommentTextBox" Height="50" Margin="0,5" TextWrapping="Wrap"/>
+            <Label Content="Адрес доставки" />
+            <TextBox x:Name="AddressTextBox" Height="30" Margin="0,5"/>
+            <Label Content="Тип доставки" />
+            <ComboBox x:Name="ShippingTypeComboBox" Height="30" Margin="0,5"
+                DisplayMemberPath="Name" SelectedValuePath="Id"/>
+            <Button Content="Оформить заказ" Click="SubmitOrderButton_Click" Height="40" Margin="0,10"/>
+        </StackPanel>
+
+        <Button Content="Назад" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,10,0,0"/>
+    </Grid>
+</Page>

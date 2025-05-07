@@ -6,92 +6,164 @@
       xmlns:local="clr-namespace:GalleryApp.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ContentPageManager">
+      Title="Товары менеджер">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="70"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label x:Name="CountOfLabel" Grid.Row="0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Content="123" Margin="10,0,0,0"></Label>
-        <Label x:Name="FIOLabel" Grid.Row="0"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Center"
-               Content="ФИО" Margin="0,0,10,0"></Label>
-        <Grid Grid.Row="1">
+
+        <!-- Верхние лейблы -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="CountOfLabel"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Content="123"
+                   Margin="10,0,0,0"/>
+
+            <Label x:Name="FIOLabel"
+                   Grid.Column="1"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Content="ФИО"
+                   Margin="0,0,10,0"/>
+        </Grid>
+
+        <!-- Панель управления (поиск, сортировка, фильтры) -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    Margin="10,0,10,0">
             <TextBox x:Name="SearchTextBox"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="10,0,0,0" Width="130"
-                     TextChanged="SearchTextBox_TextChanged"></TextBox>
+                     Width="130"
+                     Margin="0,0,10,0"
+                     TextChanged="SearchTextBox_TextChanged"/>
+
             <RadioButton x:Name="SortUpRadioButton"
                          Content="По возрастанию"
                          VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Margin="170,0,0,0"
-                         Checked="SortUpRadioButton_Checked"></RadioButton>
+                         Margin="0,0,10,0"
+                         Checked="SortUpRadioButton_Checked"/>
+
             <RadioButton x:Name="SortDownRadioButton"
-                         Content="По Убыванию"
+                         Content="По убыванию"
                          VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Margin="300,0,0,0"
-                         Checked="SortDownRadioButton_Checked"></RadioButton>
-            <ComboBox x:Name="SizeTypeComboBox" VerticalAlignment="Center"
-                      HorizontalAlignment="Left" Margin="420,0,0,0" Width="150"
-                      SelectionChanged="SizeTypeComboBox_SelectionChanged"  DisplayMemberPath="Size"></ComboBox>
-        </Grid>
+                         Margin="0,0,10,0"
+                         Checked="SortDownRadioButton_Checked"/>
+
+            <ComboBox x:Name="SizeTypeComboBox"
+                      Width="150"
+                      Margin="0,0,10,0"
+                      VerticalAlignment="Center"
+                      SelectionChanged="SizeTypeComboBox_SelectionChanged"
+                      DisplayMemberPath="Size"/>
+
+            <ComboBox x:Name="ExhibitionFilterComboBox"
+                      Width="150"
+                      VerticalAlignment="Center"
+                      SelectionChanged="ExhibitionFilterComboBox_SelectionChanged"
+                      DisplayMemberPath="Name"/>
+        </StackPanel>
+
+        <!-- Список товаров -->
         <ListView x:Name="ProductsListView"
+                  Grid.Row="2"
+                  Margin="10"
                   VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Center"
-                  Margin="10" Grid.Row="2">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ProductQuantityInStock}" Value="0">
-                            <Setter Property="Background" Value="Black"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
+                  HorizontalContentAlignment="Center">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                            <ColumnDefinition Width="400"></ColumnDefinition>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
+
                         <Image Grid.Column="0"
-                               Margin="10">
+                               Margin="10"
+                               Width="130"
+                               Height="100"
+                               Stretch="UniformToFill">
                             <Image.Source>
                                 <Binding Path="ProductPhoto">
                                     <Binding.TargetNullValue>
-                                        <BitmapImage UriSource="/Resources/smallcrow.png"></BitmapImage>
+                                        <BitmapImage UriSource="/Resources/smallcrow.png"/>
                                     </Binding.TargetNullValue>
                                 </Binding>
                             </Image.Source>
                         </Image>
+
                         <StackPanel Grid.Column="1"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="{Binding title, StringFormat={}Название: {0}}" ></TextBlock>
-                            <TextBlock Text="{Binding author, StringFormat={}Автор: {0}}"></TextBlock>
-                            <TextBlock Text="{Binding size, StringFormat={}Размер: {0}}"></TextBlock>
-                            <TextBlock Text="{Binding price, StringFormat={}Цена: {0}}"></TextBlock>
+                                    VerticalAlignment="Center"
+                                    Margin="10,0">
+                            <TextBlock Text="{Binding title, StringFormat='Название: {0}'}"/>
+                            <TextBlock Text="{Binding author, StringFormat='Автор: {0}'}"/>
+                            <TextBlock Text="{Binding size, StringFormat='Размер: {0}'}"/>
+                            <TextBlock Text="{Binding price, StringFormat='Цена: {0}'}"/>
                         </StackPanel>
 
+                        <Button Grid.Column="2"
+                                Content="Редактировать"
+                                Width="100"
+                                Height="30"
+                                Margin="10,0"
+                                Click="EditButton_Click"/>
+
+                        <Button Grid.Column="3"
+                                Content="Удалить"
+                                Width="100"
+                                Height="30"
+                                Margin="10,0"
+                                Click="DeleteButton_Click"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:Name="BackButton" Content="Назад" HorizontalAlignment="Left"
-                Click="BackButton_Click"  Grid.Row="3"></Button>
+        <!-- Кнопки управления -->
+        <Grid Grid.Row="3"
+              Margin="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
+            <Button x:Name="BackButton"
+                    Content="Назад"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Click="BackButton_Click"
+                    Width="100"
+                    Height="30"
+                    Margin="0,0,10,0"/>
+
+            <Button x:Name="ViewOrdersButton"
+                    Content="Посмотреть заказы"
+                    Grid.Column="1"
+                    Width="160"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Click="ViewOrdersButton_Click"/>
+
+            <Button x:Name="AddButton"
+                    Content="Добавить картину"
+                    Grid.Column="2"
+                    Width="100"
+                    Height="30"
+                    Click="AddButton_Click"/>
+        </Grid>
     </Grid>
 </Page>

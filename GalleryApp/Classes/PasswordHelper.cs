@@ -38,9 +38,9 @@ namespace GalleryApp.Classes
                         return;
                     }
 
-                    byte[] salt = GenerateSalt();  
+                    byte[] salt = GenerateSalt();
                     byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                    byte[] hashBytes = HashPassword(passwordBytes, salt);  
+                    byte[] hashBytes = HashPassword(passwordBytes, salt);
 
                     var newWorkerInfo = new WorkerInfo
                     {
@@ -48,7 +48,7 @@ namespace GalleryApp.Classes
                         IdRole = roleId
                     };
                     context.WorkerInfo.Add(newWorkerInfo);
-                    context.SaveChanges(); 
+                    context.SaveChanges();
 
                     var newUser = new Users
                     {
@@ -61,10 +61,10 @@ namespace GalleryApp.Classes
                         Mail = "example@mail.com",
                         Phone = "123456789",
                         Birth = DateTime.Now,
-                        UserType = newWorkerInfo.Id  
+                        UserType = newWorkerInfo.Id
                     };
                     context.Users.Add(newUser);
-                    context.SaveChanges(); 
+                    context.SaveChanges();
 
                     MessageBox.Show("Пользователь успешно добавлен.");
                 }
@@ -74,7 +74,5 @@ namespace GalleryApp.Classes
                 MessageBox.Show("Ошибка при добавлении пользователя: " + ex.Message);
             }
         }
-
-
     }
 }
