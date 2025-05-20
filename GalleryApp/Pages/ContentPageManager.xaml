@@ -16,7 +16,6 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <!-- Верхние лейблы -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -38,7 +37,6 @@
                    Margin="0,0,10,0"/>
         </Grid>
 
-        <!-- Панель управления (поиск, сортировка, фильтры) -->
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
@@ -74,7 +72,6 @@
                       DisplayMemberPath="Name"/>
         </StackPanel>
 
-        <!-- Список товаров -->
         <ListView x:Name="ProductsListView"
                   Grid.Row="2"
                   Margin="10"
@@ -115,15 +112,11 @@
 
                         <Button Grid.Column="2"
                                 Content="Редактировать"
-                                Width="100"
-                                Height="30"
                                 Margin="10,0"
                                 Click="EditButton_Click"/>
 
                         <Button Grid.Column="3"
                                 Content="Удалить"
-                                Width="100"
-                                Height="30"
                                 Margin="10,0"
                                 Click="DeleteButton_Click"/>
                     </Grid>
@@ -131,7 +124,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!-- Кнопки управления -->
         <Grid Grid.Row="3"
               Margin="10,0">
             <Grid.ColumnDefinitions>
@@ -146,23 +138,17 @@
                     Grid.Column="0"
                     HorizontalAlignment="Left"
                     Click="BackButton_Click"
-                    Width="100"
-                    Height="30"
                     Margin="0,0,10,0"/>
 
             <Button x:Name="ViewOrdersButton"
                     Content="Посмотреть заказы"
                     Grid.Column="1"
-                    Width="160"
-                    Height="30"
                     Margin="0,0,10,0"
                     Click="ViewOrdersButton_Click"/>
 
             <Button x:Name="AddButton"
                     Content="Добавить картину"
                     Grid.Column="2"
-                    Width="100"
-                    Height="30"
                     Click="AddButton_Click"/>
         </Grid>
     </Grid>

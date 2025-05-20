@@ -36,18 +36,18 @@ namespace GalleryApp.Pages
 
                 if (user == null)
                 {
-                    MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Неверный логин.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 byte[] hashBytes = PasswordHelper.HashPassword(Encoding.UTF8.GetBytes(PasswordBox.Password), user.PasswordSalt);
                 if (!hashBytes.SequenceEqual(user.PasswordHash))
                 {
-                    MessageBox.Show("Неверный логин или пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Неверный пароль.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                Manager.CurrentUser = user; // без кастов к интерфейсу
+                Manager.CurrentUser = user; 
 
                 var workerInfo = gallerydatabaseEntities.GetContext().WorkerInfo
                     .FirstOrDefault(w => w.Id == user.UserType);

@@ -14,16 +14,17 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Image Source="resources\secondLogo.png" HorizontalAlignment="left" Margin="20,0,0,0"></Image>
-            <TextBlock Text="маленькая ворона"
+            <!--<Image Source="resources\secondLogo.png" HorizontalAlignment="left" Margin="20,0,0,0"></Image>-->
+            <TextBlock Text="Система для просмотра"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontFamily="{StaticResource JustBreatheFont}"
-                       FontSize="48" 
-                       Foreground="Black"/>       
+                       FontSize="30"
+                       FontWeight="Bold"/>       
             
         </Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Center" Grid.Row="1" ></Frame>
-        <Grid Grid.Row="2" Background="Black"></Grid>
+        <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock FontSize="16">Вы можете позвонить нам по номеру +7 453 233 44 12, если возникли вопросы</TextBlock>
+        </Grid>
     </Grid>
 </Window>

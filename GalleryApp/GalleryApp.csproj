@@ -219,6 +219,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Bold.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-BoldItalic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-ExtraLight.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-ExtraLightItalic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Italic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Light.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-LightItalic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Medium.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-MediumItalic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Regular.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-SemiBold.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-SemiBoldItalic.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-Thin.ttf" />
+    <Resource Include="Resources\IBM_Plex_Serif\IBMPlexSerif-ThinItalic.ttf" />
     <Resource Include="Resources\Font\Just Breathe.otf" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +258,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\IBM_Plex_Serif\OFL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

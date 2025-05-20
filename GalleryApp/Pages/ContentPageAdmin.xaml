@@ -43,7 +43,6 @@
                     Margin="10,0,10,0">
             <TextBox x:Name="SearchTextBox"
                      Width="100"
-             Style="{StaticResource StyledTextBox}"
              TextChanged="SearchTextBox_TextChanged"/>  
             <RadioButton x:Name="SortUpRadioButton"
                          Content="По возрастанию"
@@ -111,15 +110,11 @@
 
                         <Button Grid.Column="2"
                                 Content="Редактировать"
-                                Width="100"
-                                Height="30"
                                 Margin="10,0"
                                 Click="EditButton_Click"/>
 
                         <Button Grid.Column="3"
                                 Content="Удалить"
-                                Width="100"
-                                Height="30"
                                 Margin="10,0"
                                 Click="DeleteButton_Click"/>
                     </Grid>
@@ -137,7 +132,6 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="BackButton"
-                    Style="{StaticResource PrimaryButton}"
                     Content="Назад"
                     Grid.Column="0"
                     HorizontalAlignment="Left"
@@ -146,13 +140,11 @@
 
             <Button x:Name="ViewOrdersButton"
                     Content="Посмотреть заказы"
-                    Style="{StaticResource PrimaryButton}"
                     Grid.Column="1"
                     Margin="0,0,10,0"
                     Click="ViewOrdersButton_Click"/>
 
             <Button x:Name="AddUserButton"
-                    Style="{StaticResource PrimaryButton}"
                     Content="Добавить пользователя"
                     Grid.Column="2"
                     Margin="0,0,10,0"
@@ -161,7 +153,6 @@
             <Button x:Name="AddButton"
                     Content="Добавить картину"
                     Grid.Column="3"
-                    Style="{StaticResource PrimaryButton}"
                     Click="AddButton_Click"/>
         </Grid>
     </Grid>

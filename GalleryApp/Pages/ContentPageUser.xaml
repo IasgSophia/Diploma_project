@@ -87,7 +87,6 @@
                         <Button Grid.Column="2"
                                 Content="Добавить в корзину"
                                 x:Name="AddToCartButton"
-                                Width="100" Height="30"
                                 Click="AddToCartButton_Click"
                                 HorizontalAlignment="left"/>
 
@@ -100,7 +99,6 @@
                 HorizontalAlignment="Right"
                 Content="Перейти в корзину"
                 x:Name="AddButton"
-                Width="150" Height="30"
                 Click="AddButton_Click"/>
     </Grid>
 </Page>
