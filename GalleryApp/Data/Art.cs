@@ -14,12 +14,6 @@ namespace GalleryApp.Data
     
     public partial class Art
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Art()
-        {
-            this.Order = new HashSet<Order>();
-        }
-    
         public int id { get; set; }
         public string title { get; set; }
         public string author { get; set; }
@@ -37,7 +31,5 @@ namespace GalleryApp.Data
         public virtual Exibition Exibition { get; set; }
         public virtual TypeSize TypeSize { get; set; }
         public virtual Users Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
     }
 }

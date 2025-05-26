@@ -18,6 +18,7 @@ namespace GalleryApp.Data
         public Users()
         {
             this.Art = new HashSet<Art>();
+            this.Order = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -34,6 +35,8 @@ namespace GalleryApp.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Art> Art { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order { get; set; }
         public virtual WorkerInfo WorkerInfo { get; set; }
     }
 }

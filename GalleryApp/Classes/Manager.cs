@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Controls;
@@ -13,58 +12,75 @@ namespace GalleryApp.Classes
     {
         public static Frame MainFrame { get; set; }
         public static Users CurrentUser { get; set; }
-        public static List<Art> CartItems { get; } = new List<Art>();
+        public static List<Lamp> CartItems { get; } = new List<Lamp>();
 
-        public static List<Art> GetCartForCurrentUser()
+        public static List<Lamp> GetCartForCurrentUser()
         {
+            if (CurrentUser == null)
+                throw new InvalidOperationException("Пользователь не авторизован.");
+
             var context = gallerydatabaseEntities.GetContext();
             var cartItems = context.Order
                 .Where(o => o.IdUser == CurrentUser.Id)
-                .Select(o => o.Art)
+                .Select(o => o.Lamp)
+                .Distinct()
                 .ToList();
 
-            return cartItems;
+            CartItems.Clear();
+            CartItems.AddRange(cartItems);
+
+            return CartItems;
         }
-
-        public static void AddToCart(Art art)
+        public static void AddToCart(Lamp lamp)
         {
-            if (art == null)
-            {
-                throw new ArgumentNullException(nameof(art), "Невозможно добавить пустой товар в корзину");
-            }
+            if (lamp == null)
+                throw new ArgumentNullException(nameof(lamp), "Невозможно добавить пустой товар в корзину");
 
-            CartItems.Add(art);
+            if (CurrentUser == null)
+                throw new InvalidOperationException("Пользователь не авторизован.");
 
             var context = gallerydatabaseEntities.GetContext();
-            var order = new Order
+
+            bool alreadyExists = context.Order
+                .Any(o => o.IdUser == CurrentUser.Id && o.IdLamp == lamp.Id);
+
+
+            if (!alreadyExists)
             {
-                IdUser = CurrentUser.Id,
-                IdArt = art.id,
-                Adress = "Не указано",
-                IdShippingType = 1,
-                Comment = "Комментарий по заказу"
-            };
-            context.Order.Add(order);
-            context.SaveChanges();
-        }
+                var order = new Order
+                {
+                    IdUser = CurrentUser.Id,
+                    IdLamp = lamp.Id,
+                    Adress = "Не указано",
+                    IdShippingType = 1,
+                    Comment = "Комментарий по заказу"
+                };
 
-        public static void RemoveFromCart(Art art)
-        {
-            if (art == null)
-            {
-                throw new ArgumentNullException(nameof(art), "Невозможно удалить пустой товар");
-            }
-
-            CartItems.Remove(art);
-
-            var context = gallerydatabaseEntities.GetContext();
-            var orderItem = context.Order
-                .FirstOrDefault(o => o.IdArt == art.id && o.IdUser == CurrentUser.Id);
-
-            if (orderItem != null)
-            {
-                context.Order.Remove(orderItem);
+                context.Order.Add(order);
                 context.SaveChanges();
+
+                CartItems.Add(lamp);
+            }
+        }
+        public static void RemoveFromCart(int lampId)
+        {
+            if (CurrentUser == null)
+                throw new InvalidOperationException("Пользователь не авторизован.");
+
+            var context = gallerydatabaseEntities.GetContext();
+            var orderToRemove = context.Order
+                .FirstOrDefault(o => o.IdLamp == lampId && o.IdUser == CurrentUser.Id);
+
+            if (orderToRemove != null)
+            {
+                context.Order.Remove(orderToRemove);
+                context.SaveChanges();
+            }
+
+            var itemToRemove = CartItems.FirstOrDefault(a => a.Id == lampId);
+            if (itemToRemove != null)
+            {
+                CartItems.Remove(itemToRemove);
             }
         }
 
@@ -74,18 +90,11 @@ namespace GalleryApp.Classes
             var user = context.Users.FirstOrDefault(u => u.Login == username);
 
             if (user == null || user.PasswordSalt == null || user.PasswordHash == null)
-            {
                 return null;
-            }
 
             byte[] passwordHash = HashPassword(password, user.PasswordSalt);
 
-            if (passwordHash.SequenceEqual(user.PasswordHash))
-            {
-                return user;
-            }
-
-            return null;
+            return passwordHash.SequenceEqual(user.PasswordHash) ? user : null;
         }
 
         private static byte[] HashPassword(string password, byte[] salt)
@@ -101,44 +110,17 @@ namespace GalleryApp.Classes
             var context = gallerydatabaseEntities.GetContext();
             var user = context.Users.FirstOrDefault(u => u.Id == userId);
 
-            if (user != null)
-            {
-                return $"{user.LastName} {user.FirstName} {user.MiddleName}";
-            }
-            return string.Empty;
+            return user != null ? $"{user.LastName} {user.FirstName} {user.MiddleName}" : string.Empty;
         }
-
         public static string GetUserAddress(int userId)
         {
             var context = gallerydatabaseEntities.GetContext();
             var order = context.Order
                 .Where(o => o.IdUser == userId)
+                .OrderByDescending(o => o.Id)
                 .FirstOrDefault();
 
             return order?.Adress ?? "Не указано";
-        }
-
-        public static void RemoveFromCart(int artId)
-        {
-            if (CurrentUser == null)
-            {
-                throw new InvalidOperationException("Пользователь не авторизован");
-            }
-
-            var context = gallerydatabaseEntities.GetContext();
-            var artToRemove = context.Order.FirstOrDefault(o => o.IdArt == artId && o.IdUser == CurrentUser.Id);
-
-            if (artToRemove != null)
-            {
-                context.Order.Remove(artToRemove);
-                context.SaveChanges();
-
-                var itemToRemove = CartItems.FirstOrDefault(a => a.id == artId);
-                if (itemToRemove != null)
-                {
-                    CartItems.Remove(itemToRemove);
-                }
-            }
         }
     }
 }

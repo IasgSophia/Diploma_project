@@ -31,15 +31,56 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Lamp">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.Lamp">
+        <MappingFragment StoreEntitySet="Lamp">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="LampTypeId" ColumnName="LampTypeId" />
+          <ScalarProperty Name="PowerWatts" ColumnName="PowerWatts" />
+          <ScalarProperty Name="ColorTemperature" ColumnName="ColorTemperature" />
+          <ScalarProperty Name="CRI" ColumnName="CRI" />
+          <ScalarProperty Name="LuminousFlux" ColumnName="LuminousFlux" />
+          <ScalarProperty Name="BeamAngle" ColumnName="BeamAngle" />
+          <ScalarProperty Name="HasUVProtection" ColumnName="HasUVProtection" />
+          <ScalarProperty Name="HasIRProtection" ColumnName="HasIRProtection" />
+          <ScalarProperty Name="Dimmable" ColumnName="Dimmable" />
+          <ScalarProperty Name="MountingTypeId" ColumnName="MountingTypeId" />
+          <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
+          <ScalarProperty Name="ProductPhoto" ColumnName="ProductPhoto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LampType">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.LampType">
+        <MappingFragment StoreEntitySet="LampType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MountingType">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.MountingType">
+        <MappingFragment StoreEntitySet="MountingType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Order">
       <EntityTypeMapping TypeName="gallerydatabaseModel.Order">
         <MappingFragment StoreEntitySet="Order">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-          <ScalarProperty Name="IdArt" ColumnName="IdArt" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Adress" ColumnName="Adress" />
           <ScalarProperty Name="IdShippingType" ColumnName="IdShippingType" />
+          <ScalarProperty Name="IdLamp" ColumnName="IdLamp" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

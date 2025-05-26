@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GalleryApp.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Товары администратор">
+      d:DesignHeight="450" d:DesignWidth="1200"
+      Title="Товары - администратор">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -37,38 +37,121 @@
                    Margin="0,0,10,0"/>
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    Margin="10,0,10,0">
-            <TextBox x:Name="SearchTextBox"
-                     Width="100"
-             TextChanged="SearchTextBox_TextChanged"/>  
-            <RadioButton x:Name="SortUpRadioButton"
-                         Content="По возрастанию"
-                         VerticalAlignment="Center"
-                         Margin="0,0,10,0"
-                         Checked="SortUpRadioButton_Checked"/>
+        <ScrollViewer Grid.Row="1"
+              HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Disabled"
+              Height="70">
+            <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center"
+                Margin="10,0,10,0"
+                HorizontalAlignment="Left">
+                <TextBox x:Name="SearchTextBox"
+                 Width="150"
+                 Margin="0,0,10,0"
+                 VerticalAlignment="Center"
+                 TextChanged="SearchTextBox_TextChanged"/>
+                <RadioButton x:Name="SortUpRadioButton"
+                     Content="Цена ↑"
+                     Margin="0,0,10,0"
+                     VerticalAlignment="Center"
+                     Checked="SortUpRadioButton_Checked"/>
+                <RadioButton x:Name="SortDownRadioButton"
+                     Content="Цена ↓"
+                     Margin="0,0,10,10"
+                     VerticalAlignment="Center"
+                     Checked="SortDownRadioButton_Checked"/>
+                
+                <ComboBox x:Name="LampTypeComboBox"
+          Width="150"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          DisplayMemberPath="Name"
+          SelectedValuePath="Id"
+          SelectionChanged="LampTypeComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Тип лампы</ComboBoxItem>
+                </ComboBox>
 
-            <RadioButton x:Name="SortDownRadioButton"
-                         Content="По убыванию"
-                         VerticalAlignment="Center"
-                         Margin="0,0,10,0"
-                         Checked="SortDownRadioButton_Checked"/>
+                <ComboBox x:Name="ColorTemperatureComboBox"
+          Width="120"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          SelectionChanged="ColorTemperatureComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Цвет. темп.</ComboBoxItem>
+                </ComboBox>
 
-            <ComboBox x:Name="SizeTypeComboBox"
-                      Width="150"
-                      Margin="0,0,10,0"
-                      VerticalAlignment="Center"
-                      SelectionChanged="SizeTypeComboBox_SelectionChanged"
-                      DisplayMemberPath="Size"/>
+                <ComboBox x:Name="CRIComboBox"
+          Width="100"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          SelectionChanged="CRIComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">CRI</ComboBoxItem>
+                </ComboBox>
 
-            <ComboBox x:Name="ExhibitionFilterComboBox"
-                      Width="150"
-                      VerticalAlignment="Center"
-                      SelectionChanged="ExhibitionFilterComboBox_SelectionChanged"
-                      DisplayMemberPath="Name"/>
-        </StackPanel>
+                <ComboBox x:Name="LuminousFluxComboBox"
+          Width="130"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          SelectionChanged="LuminousFluxComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Световой поток</ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox x:Name="BeamAngleComboBox"
+          Width="120"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          SelectionChanged="BeamAngleComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Угол</ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox x:Name="VoltageComboBox"
+          Width="100"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          SelectionChanged="VoltageComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Вольтаж</ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox x:Name="MountingTypeComboBox"
+          Width="130"
+          Margin="0,0,10,0"
+          VerticalAlignment="Center"
+          DisplayMemberPath="Name"
+          SelectedValuePath="Id"
+          SelectionChanged="MountingTypeComboBox_SelectionChanged">
+                    <ComboBoxItem IsEnabled="False" IsSelected="True">Крепление</ComboBoxItem>
+                </ComboBox>
+
+                <CheckBox x:Name="UVCheckBox"
+                  Content="Защита УФ"
+                  Margin="0,0,10,0"
+                  VerticalAlignment="Center"
+                  Checked="FilterCheckBox_Checked"
+                  Unchecked="FilterCheckBox_Unchecked"/>
+
+                <CheckBox x:Name="IRCheckBox"
+                  Content="Защита ИК"
+                  Margin="0,0,10,0"
+                  VerticalAlignment="Center"
+                  Checked="FilterCheckBox_Checked"
+                  Unchecked="FilterCheckBox_Unchecked"/>
+
+                <CheckBox x:Name="DimmableCheckBox"
+                  Content="Диммируемый"
+                  Margin="0,0,10,0"
+                  VerticalAlignment="Center"
+                  Checked="FilterCheckBox_Checked"
+                  Unchecked="FilterCheckBox_Unchecked"/>
+
+                <CheckBox x:Name="InStockCheckBox"
+                  Content="В наличии"
+                  Margin="0,0,10,0"
+                  VerticalAlignment="Center"
+                  Checked="FilterCheckBox_Checked"
+                  Unchecked="FilterCheckBox_Unchecked"/>
+
+            </StackPanel>
+        </ScrollViewer>
+
 
         <ListView x:Name="ProductsListView"
                   Grid.Row="2"

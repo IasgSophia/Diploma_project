@@ -28,16 +28,54 @@
     <Property Name="StartDate" Type="date" Nullable="false" />
     <Property Name="EndDate" Type="date" Nullable="false" />
   </EntityType>
+  <EntityType Name="Lamp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModelName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Manufacturer" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="LampTypeId" Type="int" Nullable="false" />
+    <Property Name="PowerWatts" Type="float" Nullable="false" />
+    <Property Name="ColorTemperature" Type="int" Nullable="false" />
+    <Property Name="CRI" Type="float" Nullable="false" />
+    <Property Name="LuminousFlux" Type="int" Nullable="false" />
+    <Property Name="BeamAngle" Type="int" Nullable="false" />
+    <Property Name="HasUVProtection" Type="bit" Nullable="false" />
+    <Property Name="HasIRProtection" Type="bit" Nullable="false" />
+    <Property Name="Dimmable" Type="bit" Nullable="false" />
+    <Property Name="MountingTypeId" Type="int" Nullable="false" />
+    <Property Name="Voltage" Type="float" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="StockQuantity" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PhotoName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductPhoto" Type="image" />
+  </EntityType>
+  <EntityType Name="LampType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MountingType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdUser" Type="int" Nullable="false" />
-    <Property Name="IdArt" Type="int" Nullable="false" />
     <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
     <Property Name="Adress" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="IdShippingType" Type="int" Nullable="false" />
+    <Property Name="IdLamp" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Position">
     <Key>
@@ -101,6 +139,30 @@
     <Property Name="IdPosition" Type="int" />
     <Property Name="IdRole" Type="int" />
   </EntityType>
+  <Association Name="FK__Lamp__LampTypeId__55F4C372">
+    <End Role="LampType" Type="Self.LampType" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LampType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="LampTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lamp__MountingTy__56E8E7AB">
+    <End Role="MountingType" Type="Self.MountingType" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MountingType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="MountingTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Art_Exibition">
     <End Role="Exibition" Type="Self.Exibition" Multiplicity="1" />
     <End Role="Art" Type="Self.Art" Multiplicity="*" />
@@ -137,15 +199,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Order_Art">
-    <End Role="Art" Type="Self.Art" Multiplicity="1" />
+  <Association Name="FK_Order_Lamp">
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Art">
-        <PropertyRef Name="id" />
+      <Principal Role="Lamp">
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Order">
-        <PropertyRef Name="IdArt" />
+        <PropertyRef Name="IdLamp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Lamp1">
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lamp">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdLamp" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -158,6 +232,18 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="IdShippingType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -200,6 +286,9 @@
   <EntityContainer Name="Хранилище gallerydatabaseModelContainer">
     <EntitySet Name="Art" EntityType="Self.Art" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Exibition" EntityType="Self.Exibition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lamp" EntityType="Self.Lamp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LampType" EntityType="Self.LampType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MountingType" EntityType="Self.MountingType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -208,6 +297,14 @@
     <EntitySet Name="TypeSize" EntityType="Self.TypeSize" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkerInfo" EntityType="Self.WorkerInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Lamp__LampTypeId__55F4C372" Association="Self.FK__Lamp__LampTypeId__55F4C372">
+      <End Role="LampType" EntitySet="LampType" />
+      <End Role="Lamp" EntitySet="Lamp" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lamp__MountingTy__56E8E7AB" Association="Self.FK__Lamp__MountingTy__56E8E7AB">
+      <End Role="MountingType" EntitySet="MountingType" />
+      <End Role="Lamp" EntitySet="Lamp" />
+    </AssociationSet>
     <AssociationSet Name="FK_Art_Exibition" Association="Self.FK_Art_Exibition">
       <End Role="Exibition" EntitySet="Exibition" />
       <End Role="Art" EntitySet="Art" />
@@ -220,12 +317,20 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Order_Art" Association="Self.FK_Order_Art">
-      <End Role="Art" EntitySet="Art" />
+    <AssociationSet Name="FK_Order_Lamp" Association="Self.FK_Order_Lamp">
+      <End Role="Lamp" EntitySet="Lamp" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Lamp1" Association="Self.FK_Order_Lamp1">
+      <End Role="Lamp" EntitySet="Lamp" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_ShippingType" Association="Self.FK_Order_ShippingType">
       <End Role="ShippingType" EntitySet="ShippingType" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Users" Association="Self.FK_Order_Users">
+      <End Role="Users" EntitySet="Users" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_Users_WorkerInfo" Association="Self.FK_Users_WorkerInfo">

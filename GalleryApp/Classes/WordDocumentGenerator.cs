@@ -23,7 +23,7 @@ namespace GalleryApp.Classes
                 }
 
                 var user = context.Users.FirstOrDefault(u => u.Id == order.IdUser);
-                var art = context.Art.FirstOrDefault(a => a.id == order.IdArt);
+                var art = context.Art.FirstOrDefault(a => a.id == order.Id);
                 var shippingType = context.ShippingType.FirstOrDefault(s => s.Id == order.IdShippingType);
 
                 if (user == null || art == null || shippingType == null)

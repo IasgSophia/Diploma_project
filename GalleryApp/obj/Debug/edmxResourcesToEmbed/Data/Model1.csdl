@@ -20,7 +20,6 @@
     <NavigationProperty Name="Exibition" Relationship="Self.FK_Art_Exibition" FromRole="Art" ToRole="Exibition" />
     <NavigationProperty Name="TypeSize" Relationship="Self.FK_Art_TypeSize" FromRole="Art" ToRole="TypeSize" />
     <NavigationProperty Name="Users" Relationship="Self.FK_Art_Users" FromRole="Art" ToRole="Users" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Art" FromRole="Art" ToRole="Order" />
   </EntityType>
   <EntityType Name="Exibition">
     <Key>
@@ -33,18 +32,64 @@
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Art" Relationship="Self.FK_Art_Exibition" FromRole="Exibition" ToRole="Art" />
   </EntityType>
+  <EntityType Name="Lamp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Manufacturer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LampTypeId" Type="Int32" Nullable="false" />
+    <Property Name="PowerWatts" Type="Double" Nullable="false" />
+    <Property Name="ColorTemperature" Type="Int32" Nullable="false" />
+    <Property Name="CRI" Type="Double" Nullable="false" />
+    <Property Name="LuminousFlux" Type="Int32" Nullable="false" />
+    <Property Name="BeamAngle" Type="Int32" Nullable="false" />
+    <Property Name="HasUVProtection" Type="Boolean" Nullable="false" />
+    <Property Name="HasIRProtection" Type="Boolean" Nullable="false" />
+    <Property Name="Dimmable" Type="Boolean" Nullable="false" />
+    <Property Name="MountingTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Voltage" Type="Double" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="StockQuantity" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhotoName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="LampType" Relationship="Self.FK__Lamp__LampTypeId__55F4C372" FromRole="Lamp" ToRole="LampType" />
+    <NavigationProperty Name="MountingType" Relationship="Self.FK__Lamp__MountingTy__56E8E7AB" FromRole="Lamp" ToRole="MountingType" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Lamp" FromRole="Lamp" ToRole="Order" />
+    <NavigationProperty Name="Order1" Relationship="Self.FK_Order_Lamp1" FromRole="Lamp" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="LampType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Lamp" Relationship="Self.FK__Lamp__LampTypeId__55F4C372" FromRole="LampType" ToRole="Lamp" />
+  </EntityType>
+  <EntityType Name="MountingType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Lamp" Relationship="Self.FK__Lamp__MountingTy__56E8E7AB" FromRole="MountingType" ToRole="Lamp" />
+  </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IdUser" Type="Int32" Nullable="false" />
-    <Property Name="IdArt" Type="Int32" Nullable="false" />
     <Property Name="Comment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="Adress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IdShippingType" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Art" Relationship="Self.FK_Order_Art" FromRole="Order" ToRole="Art" />
+    <Property Name="IdLamp" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lamp" Relationship="Self.FK_Order_Lamp" FromRole="Order" ToRole="Lamp" />
+    <NavigationProperty Name="Lamp1" Relationship="Self.FK_Order_Lamp1" FromRole="Order" ToRole="Lamp" />
     <NavigationProperty Name="ShippingType" Relationship="Self.FK_Order_ShippingType" FromRole="Order" ToRole="ShippingType" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Order_Users" FromRole="Order" ToRole="Users" />
   </EntityType>
   <EntityType Name="Position">
     <Key>
@@ -104,6 +149,7 @@
     <Property Name="PasswordSalt" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="UserType" Type="Int32" />
     <NavigationProperty Name="Art" Relationship="Self.FK_Art_Users" FromRole="Users" ToRole="Art" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Users" FromRole="Users" ToRole="Order" />
     <NavigationProperty Name="WorkerInfo" Relationship="Self.FK_Users_WorkerInfo" FromRole="Users" ToRole="WorkerInfo" />
   </EntityType>
   <EntityType Name="WorkerInfo">
@@ -153,15 +199,51 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Order_Art">
-    <End Role="Art" Type="Self.Art" Multiplicity="1" />
+  <Association Name="FK__Lamp__LampTypeId__55F4C372">
+    <End Role="LampType" Type="Self.LampType" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LampType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="LampTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lamp__MountingTy__56E8E7AB">
+    <End Role="MountingType" Type="Self.MountingType" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MountingType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="MountingTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Lamp">
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Art">
-        <PropertyRef Name="id" />
+      <Principal Role="Lamp">
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Order">
-        <PropertyRef Name="IdArt" />
+        <PropertyRef Name="IdLamp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Lamp1">
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lamp">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdLamp" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -174,6 +256,18 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="IdShippingType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -216,6 +310,9 @@
   <EntityContainer Name="gallerydatabaseEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Art" EntityType="Self.Art" />
     <EntitySet Name="Exibition" EntityType="Self.Exibition" />
+    <EntitySet Name="Lamp" EntityType="Self.Lamp" />
+    <EntitySet Name="LampType" EntityType="Self.LampType" />
+    <EntitySet Name="MountingType" EntityType="Self.MountingType" />
     <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="Position" EntityType="Self.Position" />
     <EntitySet Name="Role" EntityType="Self.Role" />
@@ -236,12 +333,28 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Art" EntitySet="Art" />
     </AssociationSet>
-    <AssociationSet Name="FK_Order_Art" Association="Self.FK_Order_Art">
-      <End Role="Art" EntitySet="Art" />
+    <AssociationSet Name="FK__Lamp__LampTypeId__55F4C372" Association="Self.FK__Lamp__LampTypeId__55F4C372">
+      <End Role="LampType" EntitySet="LampType" />
+      <End Role="Lamp" EntitySet="Lamp" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lamp__MountingTy__56E8E7AB" Association="Self.FK__Lamp__MountingTy__56E8E7AB">
+      <End Role="MountingType" EntitySet="MountingType" />
+      <End Role="Lamp" EntitySet="Lamp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Lamp" Association="Self.FK_Order_Lamp">
+      <End Role="Lamp" EntitySet="Lamp" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Lamp1" Association="Self.FK_Order_Lamp1">
+      <End Role="Lamp" EntitySet="Lamp" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_ShippingType" Association="Self.FK_Order_ShippingType">
       <End Role="ShippingType" EntitySet="ShippingType" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Users" Association="Self.FK_Order_Users">
+      <End Role="Users" EntitySet="Users" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_WorkerInfo_Position" Association="Self.FK_WorkerInfo_Position">

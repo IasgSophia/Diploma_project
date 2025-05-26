@@ -20,6 +20,7 @@ namespace GalleryApp.Pages
             try
             {
                 StringBuilder errors = new StringBuilder();
+
                 if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
                     errors.AppendLine("Заполните логин");
                 if (string.IsNullOrWhiteSpace(PasswordBox.Password))
@@ -31,12 +32,20 @@ namespace GalleryApp.Pages
                     return;
                 }
 
-                var user = gallerydatabaseEntities.GetContext().Users
+                var context = gallerydatabaseEntities.GetContext();
+
+                var user = context.Users
                     .FirstOrDefault(u => u.Login.ToLower() == LoginTextBox.Text.ToLower());
 
                 if (user == null)
                 {
                     MessageBox.Show("Неверный логин.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (user.PasswordSalt == null || user.PasswordHash == null)
+                {
+                    MessageBox.Show("Ошибка в данных пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -47,50 +56,57 @@ namespace GalleryApp.Pages
                     return;
                 }
 
-                Manager.CurrentUser = user; 
+                Manager.CurrentUser = user;
 
-                var workerInfo = gallerydatabaseEntities.GetContext().WorkerInfo
+                // Получаем информацию о роли и должности через WorkInfo (UserType -> WorkInfo.Id)
+                var workerInfo = context.WorkerInfo
                     .FirstOrDefault(w => w.Id == user.UserType);
+
                 if (workerInfo == null)
                 {
                     MessageBox.Show("Не удалось определить роль пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                var role = gallerydatabaseEntities.GetContext().Role
+                var role = context.Role
                     .FirstOrDefault(r => r.Id == workerInfo.IdRole);
+
                 if (role == null)
                 {
                     MessageBox.Show("Роль пользователя не найдена.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                MessageBox.Show($"Вы вошли как {role.Name}", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigateUser(role);
+                // Можно при желании получить должность
+                var position = context.Position
+                    .FirstOrDefault(p => p.Id == workerInfo.IdPosition)?.Name ?? "Должность не указана";
+
+                MessageBox.Show($"Вы вошли как {role.Name} ({position})", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                NavigateUser(role.Name);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-
-
-        private void NavigateUser(Role userrole)
+        private void NavigateUser(string roleName)
         {
-            switch (userrole.Name)
+            switch (roleName)
             {
                 case "Сотрудник":
-                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageManager());
+                    Manager.MainFrame.Navigate(new ContentPageManager());
                     break;
                 case "Пользователь":
-                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageUser());
+                    Manager.MainFrame.Navigate(new ContentPageUser());
                     break;
                 case "Администратор":
-                    Classes.Manager.MainFrame.Navigate(new Pages.ContentPageAdmin());
+                    Manager.MainFrame.Navigate(new ContentPageAdmin());
                     break;
                 default:
-                    throw new Exception("Неизвестный тип пользователя.");
+                    MessageBox.Show("Неизвестный тип пользователя.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
             }
         }
     }

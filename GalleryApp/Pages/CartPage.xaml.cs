@@ -85,7 +85,6 @@ namespace GalleryApp.Pages
                     var newOrder = new Order
                     {
                         IdUser = Manager.CurrentUser.Id,
-                        IdArt = art.id,
                         Comment = CommentTextBox.Text,
                         Adress = AddressTextBox.Text,
                         IdShippingType = selectedShippingType.Id

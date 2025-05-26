@@ -53,7 +53,7 @@
         <Style TargetType="ComboBox">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-MediumItalic}"/>
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="6,3"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="3"/>
@@ -80,7 +80,7 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-BoldItalic}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -105,7 +105,7 @@
 
         <Style TargetType="PasswordBox">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-BoldItalic}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Foreground" Value="White"/>
@@ -138,7 +138,7 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-Light}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="MinWidth" Value="90"/>
@@ -146,7 +146,7 @@
         </Style>
         <Style TargetType="RadioButton">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-Light}"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="MinWidth" Value="90"/>

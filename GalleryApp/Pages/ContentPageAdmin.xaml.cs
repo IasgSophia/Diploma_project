@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace GalleryApp.Pages
 {
@@ -23,7 +24,7 @@ namespace GalleryApp.Pages
         {
             try
             {
-                var uri = new Uri("pack://application:,,,/Resources/smallcrow.png", UriKind.Absolute);
+                var uri = new Uri("pack://application:,,,/Resources/default_lamp.png", UriKind.Absolute);
                 var resourceStream = Application.GetResourceStream(uri);
                 if (resourceStream != null)
                 {
@@ -40,17 +41,16 @@ namespace GalleryApp.Pages
             }
         }
 
-        private List<Data.Art> SortProducts(List<Data.Art> products)
+        private List<Data.Lamp> SortLamps(List<Data.Lamp> lamps)
         {
             if (SortUpRadioButton.IsChecked == true)
-                return products.OrderBy(d => d.price).ToList();
+                return lamps.OrderBy(l => l.Price).ToList();
 
             if (SortDownRadioButton.IsChecked == true)
-                return products.OrderByDescending(d => d.price).ToList();
+                return lamps.OrderByDescending(l => l.Price).ToList();
 
-            return products;
+            return lamps;
         }
-
 
         private void InitializePage()
         {
@@ -60,31 +60,28 @@ namespace GalleryApp.Pages
                 if (currentUser != null)
                 {
                     FIOLabel.Visibility = Visibility.Visible;
-                    FIOLabel.Content = $"{Manager.CurrentUser.LastName} {Manager.CurrentUser.FirstName} {Manager.CurrentUser.MiddleName}";
-
+                    FIOLabel.Content = $"{currentUser.LastName} {currentUser.FirstName} {currentUser.MiddleName}";
                 }
                 else
                 {
                     FIOLabel.Visibility = Visibility.Hidden;
                     FIOLabel.Content = "ФИО не найдено";
                 }
-                var products = Data.gallerydatabaseEntities.GetContext().Art.ToList();
-                SetDefaultImages(products);
 
-                ProductsListView.ItemsSource = products;
+                var lamps = Data.gallerydatabaseEntities.GetContext().Lamp.ToList();
+                SetDefaultImages(lamps);
+                ProductsListView.ItemsSource = lamps;
 
-                var sizeTypes = Data.gallerydatabaseEntities.GetContext().TypeSize.ToList();
-                sizeTypes.Insert(0, new Data.TypeSize { Size = "Все размеры" });
-                SizeTypeComboBox.ItemsSource = sizeTypes;
-                SizeTypeComboBox.SelectedIndex = 0;
+                var lampTypes = Data.gallerydatabaseEntities.GetContext().LampType.ToList();
+                lampTypes.Insert(0, new Data.LampType { Name = "Все типы" });
+                LampTypeComboBox.ItemsSource = lampTypes;
+                LampTypeComboBox.SelectedIndex = 0;
 
-                var exhibitions = Data.gallerydatabaseEntities.GetContext().Exibition.ToList();
-                exhibitions.Insert(0, new Data.Exibition { Name = "Все выставки" });
-                ExhibitionFilterComboBox.ItemsSource = exhibitions;
-                ExhibitionFilterComboBox.SelectedIndex = 0;
-
-
-                CountOfLabel.Content = $"{products.Count}/{products.Count}";
+                var mountingTypes = Data.gallerydatabaseEntities.GetContext().MountingType.ToList();
+                mountingTypes.Insert(0, new Data.MountingType { Name = "Все крепления" });
+                MountingTypeComboBox.ItemsSource = mountingTypes;
+                MountingTypeComboBox.SelectedIndex = 0;
+                CountOfLabel.Content = $"{lamps.Count}/{lamps.Count}";
             }
             catch (Exception ex)
             {
@@ -92,13 +89,12 @@ namespace GalleryApp.Pages
             }
         }
 
-
-        private void SetDefaultImages(List<Data.Art> products)
+        private void SetDefaultImages(List<Data.Lamp> lamps)
         {
-            foreach (var art in products)
+            foreach (var lamp in lamps)
             {
-                if (art.ProductPhoto == null || art.ProductPhoto.Length == 0)
-                    art.ProductPhoto = _defaultImage;
+                if (lamp.ProductPhoto == null || lamp.ProductPhoto.Length == 0)
+                    lamp.ProductPhoto = _defaultImage;
             }
         }
 
@@ -106,14 +102,14 @@ namespace GalleryApp.Pages
         {
             try
             {
-                var products = Data.gallerydatabaseEntities.GetContext().Art.ToList();
-                SetDefaultImages(products);
+                var lamps = Data.gallerydatabaseEntities.GetContext().Lamp.ToList();
+                SetDefaultImages(lamps);
 
-                FilterProducts(ref products);
-                products = SortProducts(products);
+                FilterLamps(ref lamps);
+                lamps = SortLamps(lamps);
 
-                CountOfLabel.Content = $"{products.Count}/{Data.gallerydatabaseEntities.GetContext().Art.Count()}";
-                ProductsListView.ItemsSource = products;
+                CountOfLabel.Content = $"{lamps.Count}/{Data.gallerydatabaseEntities.GetContext().Lamp.Count()}";
+                ProductsListView.ItemsSource = lamps;
             }
             catch (Exception ex)
             {
@@ -121,68 +117,64 @@ namespace GalleryApp.Pages
             }
         }
 
-        private void FilterProducts(ref List<Data.Art> products)
+        private void FilterLamps(ref List<Data.Lamp> lamps)
         {
             var search = SearchTextBox.Text.ToLower();
             if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(item =>
-                    item.title.ToLower().Contains(search) ||
-                    item.author.ToLower().Contains(search) ||
-                    item.genre.ToLower().Contains(search) ||
-                    Data.gallerydatabaseEntities.GetContext().Exibition
-                        .Where(e => e.Id == item.idExibition)
-                        .Select(e => e.Name)
-                        .FirstOrDefault()
-                        .ToLower()
-                        .Contains(search)).ToList();
+                lamps = lamps.Where(l =>
+                    (!string.IsNullOrEmpty(l.ModelName) && l.ModelName.ToLower().Contains(search)) ||
+                    (!string.IsNullOrEmpty(l.Description) && l.Description.ToLower().Contains(search)) ||
+                    (!string.IsNullOrEmpty(l.Manufacturer) && l.Manufacturer.ToLower().Contains(search))
+                ).ToList();
             }
 
-            var selectedSizeType = SizeTypeComboBox.SelectedItem as Data.TypeSize;
-            if (selectedSizeType != null && selectedSizeType.Size != "Все размеры")
+            var selectedLampType = LampTypeComboBox.SelectedItem as Data.LampType;
+            if (selectedLampType != null && selectedLampType.Name != "Все типы")
             {
-                products = products.Where(d => d.idTypeSize == selectedSizeType.Id).ToList();
+                lamps = lamps.Where(l => l.LampTypeId == selectedLampType.Id).ToList();
             }
 
-            var selectedExhibition = ExhibitionFilterComboBox.SelectedItem as Data.Exibition;
-            if (selectedExhibition != null && selectedExhibition.Name != "Все выставки")
+            var selectedMountingType = MountingTypeComboBox.SelectedItem as Data.MountingType;
+            if (selectedMountingType != null && selectedMountingType.Name != "Все крепления")
             {
-                products = products.Where(p => p.idExibition == selectedExhibition.Id).ToList();
+                lamps = lamps.Where(l => l.MountingTypeId == selectedMountingType.Id).ToList();
             }
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e) => Update();
         private void SortUpRadioButton_Checked(object sender, RoutedEventArgs e) => Update();
         private void SortDownRadioButton_Checked(object sender, RoutedEventArgs e) => Update();
-        private void SizeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
-        private void ExhibitionFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
+        private void LampTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
+        private void MountingTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
+        private void ManufacturerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedArt = (sender as Button)?.DataContext as Data.Art;
-            if (selectedArt != null)
-                Manager.MainFrame.Navigate(new Pages.AddEditProductPage(selectedArt));
+            var selectedLamp = (sender as Button)?.DataContext as Data.Lamp;
+            if (selectedLamp != null)
+                Manager.MainFrame.Navigate(new Pages.AddEditProductPage(selectedLamp));
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                var selectedArt = (sender as Button)?.DataContext as Data.Art;
-                if (selectedArt != null)
+                var selectedLamp = (sender as Button)?.DataContext as Data.Lamp;
+                if (selectedLamp != null)
                 {
-                    var result = MessageBox.Show("Вы уверены, что хотите удалить это произведение?",
+                    var result = MessageBox.Show("Вы уверены, что хотите удалить эту лампу?",
                                                   "Подтверждение удаления",
                                                   MessageBoxButton.YesNo,
                                                   MessageBoxImage.Warning);
                     if (result == MessageBoxResult.Yes)
                     {
-                        DeleteArt(selectedArt);
+                        DeleteLamp(selectedLamp);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Пожалуйста, выберите произведение для удаления.");
+                    MessageBox.Show("Пожалуйста, выберите лампу для удаления.");
                 }
             }
             catch (Exception ex)
@@ -191,13 +183,13 @@ namespace GalleryApp.Pages
             }
         }
 
-        private void DeleteArt(Data.Art selectedArt)
+        private void DeleteLamp(Data.Lamp selectedLamp)
         {
             var context = Data.gallerydatabaseEntities.GetContext();
-            var artToDelete = context.Art.FirstOrDefault(a => a.id == selectedArt.id);
-            if (artToDelete != null)
+            var lampToDelete = context.Lamp.FirstOrDefault(l => l.Id == selectedLamp.Id);
+            if (lampToDelete != null)
             {
-                context.Art.Remove(artToDelete);
+                context.Lamp.Remove(lampToDelete);
                 context.SaveChanges();
                 Update();
             }
@@ -218,18 +210,15 @@ namespace GalleryApp.Pages
             if (Manager.MainFrame.CanGoBack)
             {
                 if (Manager.CurrentUser != null)
-                {
                     Manager.CurrentUser = null;
-                }
+
                 Manager.MainFrame.GoBack();
             }
         }
-
 
         private void ViewOrdersButton_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new Pages.ViewOrdersPage());
         }
-
     }
 }

@@ -36,6 +36,9 @@ namespace GalleryApp.Data
     
         public virtual DbSet<Art> Art { get; set; }
         public virtual DbSet<Exibition> Exibition { get; set; }
+        public virtual DbSet<Lamp> Lamp { get; set; }
+        public virtual DbSet<LampType> LampType { get; set; }
+        public virtual DbSet<MountingType> MountingType { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<Role> Role { get; set; }

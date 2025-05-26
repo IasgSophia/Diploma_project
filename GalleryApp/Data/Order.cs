@@ -16,12 +16,14 @@ namespace GalleryApp.Data
     {
         public int Id { get; set; }
         public int IdUser { get; set; }
-        public int IdArt { get; set; }
         public string Comment { get; set; }
         public string Adress { get; set; }
         public int IdShippingType { get; set; }
+        public int IdLamp { get; set; }
     
-        public virtual Art Art { get; set; }
+        public virtual Lamp Lamp { get; set; }
+        public virtual Lamp Lamp1 { get; set; }
         public virtual ShippingType ShippingType { get; set; }
+        public virtual Users Users { get; set; }
     }
 }
