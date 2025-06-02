@@ -34,7 +34,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ModelName" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="Manufacturer" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ManufacturerTypeId" Type="int" Nullable="false" />
     <Property Name="LampTypeId" Type="int" Nullable="false" />
     <Property Name="PowerWatts" Type="float" Nullable="false" />
     <Property Name="ColorTemperature" Type="int" Nullable="false" />
@@ -57,6 +57,13 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="MountingType">
@@ -199,6 +206,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lamp_Manufacturer">
+    <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="ManufacturerTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Lamp">
     <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -288,6 +307,7 @@
     <EntitySet Name="Exibition" EntityType="Self.Exibition" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lamp" EntityType="Self.Lamp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LampType" EntityType="Self.LampType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MountingType" EntityType="Self.MountingType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
@@ -316,6 +336,10 @@
     <AssociationSet Name="FK_Art_Users" Association="Self.FK_Art_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Art" EntitySet="Art" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lamp_Manufacturer" Association="Self.FK_Lamp_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
+      <End Role="Lamp" EntitySet="Lamp" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Lamp" Association="Self.FK_Order_Lamp">
       <End Role="Lamp" EntitySet="Lamp" />

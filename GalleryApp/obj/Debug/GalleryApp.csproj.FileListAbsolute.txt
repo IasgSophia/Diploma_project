@@ -8,6 +8,7 @@ C:\diploma\GalleryApp\GalleryApp\bin\Debug\EntityFramework.SqlServer.xml
 C:\diploma\GalleryApp\GalleryApp\bin\Debug\ru\EntityFramework.resources.dll
 C:\diploma\GalleryApp\GalleryApp\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.csproj.AssemblyReference.cache
+C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\App.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\MainWindow.g.cs
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
@@ -24,7 +25,6 @@ C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.cache
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.lref
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\MainWindow.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
-C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\CartPage.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\ContentPageUser.baml
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\Pages\ContentPageAdmin.baml

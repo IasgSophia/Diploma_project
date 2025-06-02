@@ -33,22 +33,22 @@ namespace GalleryApp.Pages
             var context = gallerydatabaseEntities.GetContext();
 
             var orders = context.Order
-                .Join(context.Art,
-                    o => o.IdArt,
-                    a => a.id,
+                .Join(context.Lamp,
+                    o => o.Id,
+                    a => a.Id,
                     (o, a) => new { o, a })
                 .Join(context.Users,
-                    orderArt => orderArt.o.IdUser,
+                    orderLamp => orderLamp.o.IdUser,
                     u => u.Id,
-                    (orderArt, u) => new
+                    (orderLamp, u) => new
                     {
-                        orderArt.o.Id,
-                        orderArt.o.Adress,
-                        orderArt.o.Comment,
-                        ArtTitle = orderArt.a.title,
-                        ArtAuthor = orderArt.a.author,
+                        orderLamp.o.Id,
+                        orderLamp.o.Adress,
+                        orderLamp.o.Comment,
+                        ArtTitle = orderLamp.a.ModelName,
+                        ArtAuthor = orderLamp.a.Manufacturer,
                         UserName = u.FirstName + " " + u.LastName,
-                        OrderEntity = orderArt.o
+                        OrderEntity = orderLamp.o
                     })
                 .ToList();
 

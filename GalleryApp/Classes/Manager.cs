@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Controls;
+using System.IO;
 
 namespace GalleryApp.Classes
 {
@@ -13,7 +14,19 @@ namespace GalleryApp.Classes
         public static Frame MainFrame { get; set; }
         public static Users CurrentUser { get; set; }
         public static List<Lamp> CartItems { get; } = new List<Lamp>();
-
+        public static void GetImageDate()
+        {
+            var list = Data.gallerydatabaseEntities.GetContext().Lamp.ToList();
+            foreach (var item in list)
+            {
+                string path = Directory.GetCurrentDirectory() + @"\img\" + item.PhotoName;
+                if (File.Exists(path))
+                {
+                    item.ProductPhoto = File.ReadAllBytes(path);
+                }
+            }
+            Data.gallerydatabaseEntities.GetContext().SaveChanges();
+        }
         public static List<Lamp> GetCartForCurrentUser()
         {
             if (CurrentUser == null)
@@ -122,5 +135,6 @@ namespace GalleryApp.Classes
 
             return order?.Adress ?? "Не указано";
         }
+
     }
 }

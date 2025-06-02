@@ -5,78 +5,104 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GalleryApp.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="1350"
       Title="Товары менеджер">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Label x:Name="CountOfLabel"
-                   Grid.Column="0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Content="123"
-                   Margin="10,0,0,0"/>
+       Grid.Column="0"
+       HorizontalAlignment="Left"
+       VerticalAlignment="Center"/>
 
             <Label x:Name="FIOLabel"
-                   Grid.Column="1"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Content="ФИО"
-                   Margin="0,0,10,0"/>
+       Grid.Column="1"
+       HorizontalAlignment="Right"
+       VerticalAlignment="Center"/>
         </Grid>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    Margin="10,0,10,0">
-            <TextBox x:Name="SearchTextBox"
-                     Width="130"
-                     Margin="0,0,10,0"
-                     TextChanged="SearchTextBox_TextChanged"/>
+        <ScrollViewer Grid.Row="1" Margin="10,5" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <WrapPanel Orientation="Horizontal"
+   ItemHeight="70"
+   MinWidth="1350"
+   VerticalAlignment="Top">
 
-            <RadioButton x:Name="SortUpRadioButton"
-                         Content="По возрастанию"
-                         VerticalAlignment="Center"
-                         Margin="0,0,10,0"
-                         Checked="SortUpRadioButton_Checked"/>
+                <TextBox x:Name="SearchTextBox"
+             Width="150"
+             Margin="0,0,10,10"
+             VerticalAlignment="Center"
+             TextChanged="SearchTextBox_TextChanged"/>
 
-            <RadioButton x:Name="SortDownRadioButton"
-                         Content="По убыванию"
-                         VerticalAlignment="Center"
-                         Margin="0,0,10,0"
-                         Checked="SortDownRadioButton_Checked"/>
+                <RadioButton x:Name="SortUpRadioButton"
+                 Content="Цена ↑"
+                 Margin="0,0,10,10"
+                 VerticalAlignment="Center"
+                 Checked="SortUpRadioButton_Checked"/>
 
-            <ComboBox x:Name="SizeTypeComboBox"
-                      Width="150"
-                      Margin="0,0,10,0"
-                      VerticalAlignment="Center"
-                      SelectionChanged="SizeTypeComboBox_SelectionChanged"
-                      DisplayMemberPath="Size"/>
+                <RadioButton x:Name="SortDownRadioButton"
+                 Content="Цена ↓"
+                 Margin="0,0,10,10"
+                 VerticalAlignment="Center"
+                 Checked="SortDownRadioButton_Checked"/>
 
-            <ComboBox x:Name="ExhibitionFilterComboBox"
-                      Width="150"
-                      VerticalAlignment="Center"
-                      SelectionChanged="ExhibitionFilterComboBox_SelectionChanged"
-                      DisplayMemberPath="Name"/>
-        </StackPanel>
+                <ComboBox x:Name="LampTypeComboBox"
+              Width="150"
+              Margin="0,0,10,10"
+              DisplayMemberPath="Name"
+              SelectedItem="Тип лампы (заглушка)"
+              SelectionChanged="LampTypeComboBox_SelectionChanged"/>
 
-        <ListView x:Name="ProductsListView"
-                  Grid.Row="2"
-                  Margin="10"
-                  VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Center">
+
+                <ComboBox x:Name="MountingTypeComboBox"
+              Width="130"
+              Margin="0,0,10,10"
+              DisplayMemberPath="Name"
+              SelectionChanged="MountingTypeComboBox_SelectionChanged"/>
+
+                <ComboBox x:Name="ManufacturerComboBox"
+              Width="150"
+              Margin="0,0,10,10"
+              DisplayMemberPath="Name"
+              SelectionChanged="ManufacturerComboBox_SelectionChanged"/>
+
+                <CheckBox x:Name="UVCheckBox"
+              Content="Защита УФ"
+              Margin="0,0,10,10"
+              Checked="UVCheckBox_Checked"
+              Unchecked="UVCheckBox_Unchecked"/>
+
+                <CheckBox x:Name="IRCheckBox"
+              Content="Защита ИК"
+              Margin="0,0,10,10"
+              Checked="IRCheckBox_Checked"
+              Unchecked="IRCheckBox_Unchecked"/>
+
+                <CheckBox x:Name="DimmableCheckBox"
+              Content="Диммируемый"
+              Margin="0,0,10,10"
+              Checked="DimmableCheckBox_Checked"
+              Unchecked="DimmableCheckBox_Unchecked"/>
+            </WrapPanel>
+        </ScrollViewer>
+
+        <ListView x:Name="ProductListView"
+      Grid.Row="2"
+      Margin="10"
+      VerticalContentAlignment="Center"
+      HorizontalContentAlignment="Center"
+      ItemsSource="{Binding Products}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,5">
@@ -88,10 +114,10 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0"
-                               Margin="10"
-                               Width="130"
-                               Height="100"
-                               Stretch="UniformToFill">
+                   Margin="10"
+                   Width="130"
+                   Height="100"
+                   Stretch="UniformToFill">
                             <Image.Source>
                                 <Binding Path="ProductPhoto">
                                     <Binding.TargetNullValue>
@@ -102,30 +128,42 @@
                         </Image>
 
                         <StackPanel Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Margin="10,0">
-                            <TextBlock Text="{Binding title, StringFormat='Название: {0}'}"/>
-                            <TextBlock Text="{Binding author, StringFormat='Автор: {0}'}"/>
-                            <TextBlock Text="{Binding size, StringFormat='Размер: {0}'}"/>
-                            <TextBlock Text="{Binding price, StringFormat='Цена: {0}'}"/>
+                        VerticalAlignment="Center"
+                        Margin="10,0">
+                            <TextBlock Text="{Binding ModelName, StringFormat='Название: {0}'}"/>
+                            <TextBlock Text="{Binding Manufacturer.Name, StringFormat='Производитель: {0}'}"/>
+                            <TextBlock Text="{Binding LampType.Name, StringFormat='Тип лампы: {0}'}"/>
+                            <TextBlock Text="{Binding PowerWatts, StringFormat='Мощность: {0} Вт'}"/>
+                            <TextBlock Text="{Binding ColorTemperature, StringFormat='Цветовая температура: {0} K'}"/>
+                            <TextBlock Text="{Binding CRI, StringFormat='Индекс цветопередачи (CRI): {0}'}"/>
+                            <TextBlock Text="{Binding LuminousFlux, StringFormat='Световой поток: {0} лм'}"/>
+                            <TextBlock Text="{Binding BeamAngle, StringFormat='Угол рассеивания: {0}°'}"/>
+                            <TextBlock Text="{Binding HasUVProtection,  StringFormat='Защита УФ: {0}'}"/>
+                            <TextBlock Text="{Binding HasIRProtection,  StringFormat='Защита ИК: {0}'}"/>
+                            <TextBlock Text="{Binding Dimmable,  StringFormat='Диммируемый: {0}'}"/>
+                            <TextBlock Text="{Binding MountingType.Name, StringFormat='Тип крепления: {0}'}"/>
+                            <TextBlock Text="{Binding Voltage, StringFormat='Напряжение: {0} В'}"/>
+                            <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}"/>
+                            <TextBlock Text="{Binding StockQuantity, StringFormat='В наличии: {0} шт.'}"/>
+                            <TextBlock Text="{Binding Description, StringFormat='Описание: {0}'}" TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <Button Grid.Column="2"
-                                Content="Редактировать"
-                                Margin="10,0"
-                                Click="EditButton_Click"/>
+                    Content="Редактировать"
+                    Margin="10,0"
+                    Click="EditButton_Click"/>
 
                         <Button Grid.Column="3"
-                                Content="Удалить"
-                                Margin="10,0"
-                                Click="DeleteButton_Click"/>
+                    Content="Удалить"
+                    Margin="10,0"
+                    Click="DeleteButton_Click"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid Grid.Row="3"
-              Margin="10,0">
+
+        <Grid Grid.Row="3" Margin="10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -134,22 +172,23 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="BackButton"
-                    Content="Назад"
-                    Grid.Column="0"
-                    HorizontalAlignment="Left"
-                    Click="BackButton_Click"
-                    Margin="0,0,10,0"/>
+                Content="Назад"
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                Click="BackButton_Click"
+                Margin="0,0,10,0"/>
 
             <Button x:Name="ViewOrdersButton"
-                    Content="Посмотреть заказы"
-                    Grid.Column="1"
-                    Margin="0,0,10,0"
-                    Click="ViewOrdersButton_Click"/>
+                Content="Посмотреть заказы"
+                Grid.Column="1"
+                Margin="0,0,10,0"
+                Click="ViewOrdersButton_Click"/>
+
 
             <Button x:Name="AddButton"
-                    Content="Добавить картину"
-                    Grid.Column="2"
-                    Click="AddButton_Click"/>
+                Content="Добавить продукт"
+                Grid.Column="3"
+                Click="AddButton_Click"/>
         </Grid>
     </Grid>
 </Page>

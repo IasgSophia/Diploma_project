@@ -55,10 +55,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  Margin="10">
             <Label x:Name="CountLabel" Content="Всего заказов: 0" VerticalAlignment="Center" FontWeight="Bold" />
-            <Button Content="Назад" Margin="20,0,0,0" Click="BackButton_Click"/>
+            <Button Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Left" Click="BackButton_Click"/>
             <Button Content="Оформить все документы" 
+                    VerticalAlignment="Center" HorizontalAlignment="Right"
                     Tag="{Binding}" 
                     Click="GenerateAllInvoicesButton_Click"/>
         </StackPanel>

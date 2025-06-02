@@ -28,7 +28,6 @@ namespace GalleryApp.Data
             }
             return _context;
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -38,6 +37,7 @@ namespace GalleryApp.Data
         public virtual DbSet<Exibition> Exibition { get; set; }
         public virtual DbSet<Lamp> Lamp { get; set; }
         public virtual DbSet<LampType> LampType { get; set; }
+        public virtual DbSet<Manufacturer> Manufacturer { get; set; }
         public virtual DbSet<MountingType> MountingType { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Position> Position { get; set; }

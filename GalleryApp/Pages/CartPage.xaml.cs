@@ -10,12 +10,12 @@ namespace GalleryApp.Pages
 {
     public partial class CartPage : Page
     {
-        public ObservableCollection<Art> CartItems { get; set; }
+        public ObservableCollection<Lamp> CartItems { get; set; }
 
         public CartPage()
         {
             InitializeComponent();
-            CartItems = new ObservableCollection<Art>(Manager.GetCartForCurrentUser());
+            CartItems = new ObservableCollection<Lamp>(Manager.GetCartForCurrentUser());
             this.DataContext = this;
             LoadShippingTypes();
             DisplayUserInfo();
@@ -39,10 +39,10 @@ namespace GalleryApp.Pages
             Button button = sender as Button;
             if (button != null)
             {
-                var item = button.CommandParameter as Art;
+                var item = button.CommandParameter as Lamp;
                 if (item != null)
                 {
-                    Manager.RemoveFromCart(item);
+                    Manager.RemoveFromCart(item.Id);
                     CartItems.Remove(item);
                 }
             }
@@ -78,7 +78,7 @@ namespace GalleryApp.Pages
             {
                 var context = gallerydatabaseEntities.GetContext();
 
-                foreach (var art in CartItems)
+                foreach (var lamp in CartItems)
                 {
                     var selectedShippingType = ShippingTypeComboBox.SelectedItem as ShippingType;
 

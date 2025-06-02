@@ -39,13 +39,13 @@
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <Label x:Name="UserInfoLabel" Content="ФИО пользователя" FontSize="16" Margin="0,5" Visibility="Hidden"/>
             <Label Content="Комментарий" />
-            <TextBox x:Name="CommentTextBox" Height="50" Margin="0,5" TextWrapping="Wrap"/>
+            <TextBox x:Name="CommentTextBox"  Margin="0,5" TextWrapping="Wrap"/>
             <Label Content="Адрес доставки" />
-            <TextBox x:Name="AddressTextBox" Height="30" Margin="0,5"/>
+            <TextBox x:Name="AddressTextBox"  Margin="0,5"/>
             <Label Content="Тип доставки" />
-            <ComboBox x:Name="ShippingTypeComboBox" Height="30" Margin="0,5"
+            <ComboBox x:Name="ShippingTypeComboBox" Margin="0,5"
                 DisplayMemberPath="Name" SelectedValuePath="Id"/>
-            <Button Content="Оформить заказ" Click="SubmitOrderButton_Click" Height="40" Margin="0,10"/>
+            <Button Content="Оформить заказ" Click="SubmitOrderButton_Click"  Margin="0,10"/>
         </StackPanel>
 
         <Button Content="Назад" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,10,0,0"/>

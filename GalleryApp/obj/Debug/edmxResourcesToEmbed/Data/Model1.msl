@@ -36,7 +36,7 @@
         <MappingFragment StoreEntitySet="Lamp">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ModelName" ColumnName="ModelName" />
-          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="ManufacturerTypeId" ColumnName="ManufacturerTypeId" />
           <ScalarProperty Name="LampTypeId" ColumnName="LampTypeId" />
           <ScalarProperty Name="PowerWatts" ColumnName="PowerWatts" />
           <ScalarProperty Name="ColorTemperature" ColumnName="ColorTemperature" />
@@ -59,6 +59,14 @@
     <EntitySetMapping Name="LampType">
       <EntityTypeMapping TypeName="gallerydatabaseModel.LampType">
         <MappingFragment StoreEntitySet="LampType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Manufacturer">
+      <EntityTypeMapping TypeName="gallerydatabaseModel.Manufacturer">
+        <MappingFragment StoreEntitySet="Manufacturer">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>

@@ -38,7 +38,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ModelName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Manufacturer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ManufacturerTypeId" Type="Int32" Nullable="false" />
     <Property Name="LampTypeId" Type="Int32" Nullable="false" />
     <Property Name="PowerWatts" Type="Double" Nullable="false" />
     <Property Name="ColorTemperature" Type="Int32" Nullable="false" />
@@ -57,6 +57,7 @@
     <Property Name="ProductPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
     <NavigationProperty Name="LampType" Relationship="Self.FK__Lamp__LampTypeId__55F4C372" FromRole="Lamp" ToRole="LampType" />
     <NavigationProperty Name="MountingType" Relationship="Self.FK__Lamp__MountingTy__56E8E7AB" FromRole="Lamp" ToRole="MountingType" />
+    <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Lamp_Manufacturer" FromRole="Lamp" ToRole="Manufacturer" />
     <NavigationProperty Name="Order" Relationship="Self.FK_Order_Lamp" FromRole="Lamp" ToRole="Order" />
     <NavigationProperty Name="Order1" Relationship="Self.FK_Order_Lamp1" FromRole="Lamp" ToRole="Order" />
   </EntityType>
@@ -67,6 +68,14 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Lamp" Relationship="Self.FK__Lamp__LampTypeId__55F4C372" FromRole="LampType" ToRole="Lamp" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Lamp" Relationship="Self.FK_Lamp_Manufacturer" FromRole="Manufacturer" ToRole="Lamp" />
   </EntityType>
   <EntityType Name="MountingType">
     <Key>
@@ -223,6 +232,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Lamp_Manufacturer">
+    <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
+    <End Role="Lamp" Type="Self.Lamp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lamp">
+        <PropertyRef Name="ManufacturerTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Lamp">
     <End Role="Lamp" Type="Self.Lamp" Multiplicity="1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -312,6 +333,7 @@
     <EntitySet Name="Exibition" EntityType="Self.Exibition" />
     <EntitySet Name="Lamp" EntityType="Self.Lamp" />
     <EntitySet Name="LampType" EntityType="Self.LampType" />
+    <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" />
     <EntitySet Name="MountingType" EntityType="Self.MountingType" />
     <EntitySet Name="Order" EntityType="Self.Order" />
     <EntitySet Name="Position" EntityType="Self.Position" />
@@ -339,6 +361,10 @@
     </AssociationSet>
     <AssociationSet Name="FK__Lamp__MountingTy__56E8E7AB" Association="Self.FK__Lamp__MountingTy__56E8E7AB">
       <End Role="MountingType" EntitySet="MountingType" />
+      <End Role="Lamp" EntitySet="Lamp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lamp_Manufacturer" Association="Self.FK_Lamp_Manufacturer">
+      <End Role="Manufacturer" EntitySet="Manufacturer" />
       <End Role="Lamp" EntitySet="Lamp" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Lamp" Association="Self.FK_Order_Lamp">

@@ -27,9 +27,37 @@ namespace GalleryApp.Pages
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LoginTextBox.Text) || string.IsNullOrWhiteSpace(PasswordBox.Password))
+                // Проверка обязательных текстовых полей
+                if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(MailTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(PhoneTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(LoginTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(PasswordBox.Password))
                 {
-                    MessageBox.Show("Введите логин и пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Пожалуйста, заполните все обязательные поля (имя, фамилия, email, телефон, логин, пароль).",
+                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Проверка выбора роли
+                if (RoleComboBox.SelectedValue == null)
+                {
+                    MessageBox.Show("Выберите роль пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Проверка выбора позиции
+                if (PositionComboBox.SelectedValue == null)
+                {
+                    MessageBox.Show("Выберите позицию пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Проверка выбора даты рождения
+                if (BirthDatePicker.SelectedDate == null)
+                {
+                    MessageBox.Show("Выберите дату рождения.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -79,6 +107,7 @@ namespace GalleryApp.Pages
                 MessageBox.Show("Ошибка при сохранении: " + message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

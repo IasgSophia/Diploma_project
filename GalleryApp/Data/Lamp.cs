@@ -23,7 +23,7 @@ namespace GalleryApp.Data
     
         public int Id { get; set; }
         public string ModelName { get; set; }
-        public string Manufacturer { get; set; }
+        public int ManufacturerTypeId { get; set; }
         public int LampTypeId { get; set; }
         public double PowerWatts { get; set; }
         public int ColorTemperature { get; set; }
@@ -43,6 +43,7 @@ namespace GalleryApp.Data
     
         public virtual LampType LampType { get; set; }
         public virtual MountingType MountingType { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

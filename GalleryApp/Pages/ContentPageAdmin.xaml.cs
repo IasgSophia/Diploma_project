@@ -1,11 +1,13 @@
 ﻿using GalleryApp.Classes;
+using GalleryApp.Data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
+using System.Windows.Data;
 
 namespace GalleryApp.Pages
 {
@@ -16,6 +18,7 @@ namespace GalleryApp.Pages
         public ContentPageAdmin()
         {
             InitializeComponent();
+            InitializeComboBoxes();
             LoadDefaultImage();
             InitializePage();
         }
@@ -41,7 +44,7 @@ namespace GalleryApp.Pages
             }
         }
 
-        private List<Data.Lamp> SortLamps(List<Data.Lamp> lamps)
+        private List<Lamp> SortLamps(List<Lamp> lamps)
         {
             if (SortUpRadioButton.IsChecked == true)
                 return lamps.OrderBy(l => l.Price).ToList();
@@ -51,6 +54,48 @@ namespace GalleryApp.Pages
 
             return lamps;
         }
+
+        private void InitializeComboBoxes()
+        {
+            var context = gallerydatabaseEntities.GetContext();
+
+            // Подгружаем список из БД
+            var lampTypes = context.LampType.OrderBy(x => x.Name).ToList();
+            var mountingTypes = context.MountingType.OrderBy(x => x.Name).ToList();
+            var manufacturers = context.Manufacturer.OrderBy(x => x.Name).ToList();
+
+            // Инициализируем ComboBox-ы
+            InitializeComboBox(LampTypeComboBox, lampTypes, "Все типы ламп");
+            InitializeComboBox(MountingTypeComboBox, mountingTypes, "Все типы креплений");
+            InitializeComboBox(ManufacturerComboBox, manufacturers, "Все производители");
+        }
+
+        private void InitializeComboBox<T>(ComboBox comboBox, List<T> items, string defaultName) where T : class, new()
+        {
+            var idProp = typeof(T).GetProperty("Id");
+            var nameProp = typeof(T).GetProperty("Name");
+
+            if (idProp == null || nameProp == null)
+            {
+                throw new InvalidOperationException($"Класс {typeof(T).Name} должен содержать свойства Id и Name.");
+            }
+
+            // Создаём элемент "Все ..."
+            var defaultItem = new T();
+            idProp.SetValue(defaultItem, 0); // Id = 0 — значит "не выбран фильтр"
+            nameProp.SetValue(defaultItem, defaultName);
+
+            // Добавляем "все" и остальные
+            var itemList = new List<T> { defaultItem };
+            itemList.AddRange(items);
+
+            comboBox.ItemsSource = itemList;
+            comboBox.DisplayMemberPath = "Name";
+            comboBox.SelectedValuePath = "Id";
+            comboBox.SelectedValue = 0; // по умолчанию — "все"
+        }
+
+
 
         private void InitializePage()
         {
@@ -68,20 +113,15 @@ namespace GalleryApp.Pages
                     FIOLabel.Content = "ФИО не найдено";
                 }
 
-                var lamps = Data.gallerydatabaseEntities.GetContext().Lamp.ToList();
+                var context = gallerydatabaseEntities.GetContext();
+
+                var lamps = context.Lamp.ToList();
+
                 SetDefaultImages(lamps);
-                ProductsListView.ItemsSource = lamps;
+                ProductListView.ItemsSource = lamps;
 
-                var lampTypes = Data.gallerydatabaseEntities.GetContext().LampType.ToList();
-                lampTypes.Insert(0, new Data.LampType { Name = "Все типы" });
-                LampTypeComboBox.ItemsSource = lampTypes;
-                LampTypeComboBox.SelectedIndex = 0;
-
-                var mountingTypes = Data.gallerydatabaseEntities.GetContext().MountingType.ToList();
-                mountingTypes.Insert(0, new Data.MountingType { Name = "Все крепления" });
-                MountingTypeComboBox.ItemsSource = mountingTypes;
-                MountingTypeComboBox.SelectedIndex = 0;
-                CountOfLabel.Content = $"{lamps.Count}/{lamps.Count}";
+                // ComboBox уже инициализированы в InitializeComboBoxes, просто обновим метки количества
+                CountOfLabel.Content = $"{lamps.Count}/{context.Lamp.Count()}";
             }
             catch (Exception ex)
             {
@@ -89,7 +129,7 @@ namespace GalleryApp.Pages
             }
         }
 
-        private void SetDefaultImages(List<Data.Lamp> lamps)
+        private void SetDefaultImages(List<Lamp> lamps)
         {
             foreach (var lamp in lamps)
             {
@@ -102,14 +142,15 @@ namespace GalleryApp.Pages
         {
             try
             {
-                var lamps = Data.gallerydatabaseEntities.GetContext().Lamp.ToList();
+                var context = gallerydatabaseEntities.GetContext();
+                var lamps = context.Lamp.ToList();
                 SetDefaultImages(lamps);
 
                 FilterLamps(ref lamps);
                 lamps = SortLamps(lamps);
 
-                CountOfLabel.Content = $"{lamps.Count}/{Data.gallerydatabaseEntities.GetContext().Lamp.Count()}";
-                ProductsListView.ItemsSource = lamps;
+                CountOfLabel.Content = $"{lamps.Count}/{context.Lamp.Count()}";
+                ProductListView.ItemsSource = lamps;
             }
             catch (Exception ex)
             {
@@ -117,29 +158,38 @@ namespace GalleryApp.Pages
             }
         }
 
-        private void FilterLamps(ref List<Data.Lamp> lamps)
+        private void FilterLamps(ref List<Lamp> lamps)
         {
-            var search = SearchTextBox.Text.ToLower();
-            if (!string.IsNullOrEmpty(search))
+            string search = SearchTextBox.Text?.ToLower() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(search))
             {
                 lamps = lamps.Where(l =>
-                    (!string.IsNullOrEmpty(l.ModelName) && l.ModelName.ToLower().Contains(search)) ||
-                    (!string.IsNullOrEmpty(l.Description) && l.Description.ToLower().Contains(search)) ||
-                    (!string.IsNullOrEmpty(l.Manufacturer) && l.Manufacturer.ToLower().Contains(search))
+                    (!string.IsNullOrEmpty(l.ModelName) && l.ModelName.
+                    ToLower().Contains(search)) ||
+                    (!string.IsNullOrEmpty(l.Description) && l.Description.
+                    ToLower().Contains(search))
                 ).ToList();
             }
+            if (LampTypeComboBox.SelectedValue is int lampTypeId && lampTypeId != 0)
+                lamps = lamps.Where(l => l.LampTypeId == lampTypeId).ToList();
 
-            var selectedLampType = LampTypeComboBox.SelectedItem as Data.LampType;
-            if (selectedLampType != null && selectedLampType.Name != "Все типы")
-            {
-                lamps = lamps.Where(l => l.LampTypeId == selectedLampType.Id).ToList();
-            }
 
-            var selectedMountingType = MountingTypeComboBox.SelectedItem as Data.MountingType;
-            if (selectedMountingType != null && selectedMountingType.Name != "Все крепления")
-            {
-                lamps = lamps.Where(l => l.MountingTypeId == selectedMountingType.Id).ToList();
-            }
+            if (MountingTypeComboBox.SelectedValue is int mountingTypeId && mountingTypeId != 0)
+                lamps = lamps.Where(l => l.MountingTypeId == mountingTypeId).ToList();
+
+            if (ManufacturerComboBox.SelectedValue is int manufacturerId && manufacturerId != 0)
+                lamps = lamps.Where(l => l.ManufacturerTypeId == manufacturerId).ToList();
+
+            if (UVCheckBox?.IsChecked == true)
+                lamps = lamps.Where(l => l.HasUVProtection).ToList();
+
+            if (IRCheckBox?.IsChecked == true)
+                lamps = lamps.Where(l => l.HasIRProtection).ToList();
+
+            if (DimmableCheckBox?.IsChecked == true)
+                lamps = lamps.Where(l => l.Dimmable).ToList();
+           
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e) => Update();
@@ -151,7 +201,7 @@ namespace GalleryApp.Pages
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedLamp = (sender as Button)?.DataContext as Data.Lamp;
+            var selectedLamp = (sender as Button)?.DataContext as Lamp;
             if (selectedLamp != null)
                 Manager.MainFrame.Navigate(new Pages.AddEditProductPage(selectedLamp));
         }
@@ -160,7 +210,7 @@ namespace GalleryApp.Pages
         {
             try
             {
-                var selectedLamp = (sender as Button)?.DataContext as Data.Lamp;
+                var selectedLamp = (sender as Button)?.DataContext as Lamp;
                 if (selectedLamp != null)
                 {
                     var result = MessageBox.Show("Вы уверены, что хотите удалить эту лампу?",
@@ -183,9 +233,9 @@ namespace GalleryApp.Pages
             }
         }
 
-        private void DeleteLamp(Data.Lamp selectedLamp)
+        private void DeleteLamp(Lamp selectedLamp)
         {
-            var context = Data.gallerydatabaseEntities.GetContext();
+            var context = gallerydatabaseEntities.GetContext();
             var lampToDelete = context.Lamp.FirstOrDefault(l => l.Id == selectedLamp.Id);
             if (lampToDelete != null)
             {
@@ -209,9 +259,7 @@ namespace GalleryApp.Pages
         {
             if (Manager.MainFrame.CanGoBack)
             {
-                if (Manager.CurrentUser != null)
-                    Manager.CurrentUser = null;
-
+                Manager.CurrentUser = null;
                 Manager.MainFrame.GoBack();
             }
         }
@@ -220,5 +268,16 @@ namespace GalleryApp.Pages
         {
             Manager.MainFrame.Navigate(new Pages.ViewOrdersPage());
         }
+        private void UVCheckBox_Checked(object sender, RoutedEventArgs e) => Update();
+        private void IRCheckBox_Checked(object sender, RoutedEventArgs e) => Update();
+        private void DimmableCheckBox_Checked(object sender, RoutedEventArgs e) => Update();
+        private void InStockCheckBox_Checked(object sender, RoutedEventArgs e) => Update();
+        private void UVCheckBox_Unchecked(object sender, RoutedEventArgs e) => Update();
+        private void IRCheckBox_Unchecked(object sender, RoutedEventArgs e) => Update();
+        private void DimmableCheckBox_Unchecked(object sender, RoutedEventArgs e) => Update();
+        private void InStockCheckBox_Unchecked(object sender, RoutedEventArgs e) => Update();
+        private void LuminousFluxComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
+        private void VoltageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => Update();
+
     }
 }

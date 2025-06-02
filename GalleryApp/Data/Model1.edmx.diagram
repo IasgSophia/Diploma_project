@@ -4,25 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a274e94bb21f4f9fba525b76e1ff75af" Name="Diagram1">
-        <EntityTypeShape EntityType="gallerydatabaseModel.Art" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Exibition" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Lamp" Width="1.5" PointX="8.25" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.LampType" Width="1.5" PointX="6" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.MountingType" Width="1.5" PointX="6" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Order" Width="1.5" PointX="10.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Position" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Role" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.ShippingType" Width="1.5" PointX="8.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.TypeSize" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.Users" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="gallerydatabaseModel.WorkerInfo" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+      <Diagram DiagramId="d3acaad90fc342d3b50d1c4e4ae778a7" Name="Diagram1">
+        <EntityTypeShape EntityType="gallerydatabaseModel.Art" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Exibition" Width="1.5" PointX="3" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Lamp" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.LampType" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Manufacturer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.MountingType" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Order" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Position" Width="1.5" PointX="1.5" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Role" Width="1.5" PointX="1.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.ShippingType" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.TypeSize" Width="1.5" PointX="3" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.Users" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="gallerydatabaseModel.WorkerInfo" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Art_Exibition" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Art_TypeSize" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Art_Users" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK__Lamp__LampTypeId__55F4C372" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK__Lamp__MountingTy__56E8E7AB" ManuallyRouted="false" />
+        <AssociationConnector Association="gallerydatabaseModel.FK_Lamp_Manufacturer" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_Lamp" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_Lamp1" ManuallyRouted="false" />
         <AssociationConnector Association="gallerydatabaseModel.FK_Order_ShippingType" ManuallyRouted="false" />
