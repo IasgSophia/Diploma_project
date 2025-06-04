@@ -38,3 +38,43 @@ C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.c
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.exe
 C:\diploma\GalleryApp\GalleryApp\obj\Debug\GalleryApp.pdb
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe.config
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.pdb
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.dll
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.xml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.AssemblyReference.cache
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_Content.g.cs
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.cache
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.lref
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.baml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.g.resources
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.Properties.Resources.resources
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.GenerateResource.cache
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.cache
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.exe
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.pdb

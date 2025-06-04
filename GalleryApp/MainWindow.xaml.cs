@@ -25,7 +25,7 @@ namespace GalleryApp
             InitializeComponent();
             Classes.Manager.MainFrame = MainFrame;
             Classes.Manager.MainFrame.Navigate(new Pages.LoginPage());
-            //Classes.Manager.GetImageDate();
+            Classes.Manager.GetImageDate();
             //Classes.PasswordHelper.UpdatePasswords();
         }
     }

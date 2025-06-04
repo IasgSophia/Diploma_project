@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\diploma\GalleryApp\GalleryApp\obj\Debug\
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\
 GalleryApp
 none
 false
 DEBUG;TRACE
-C:\diploma\GalleryApp\GalleryApp\App.xaml
+C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\App.xaml
 9555431171
 2367394133
 331998250268
-20-1319024578
+20315389234
 MainWindow.xaml;Pages\AddEditAccountsPage.xaml;Pages\AddEditProductPage.xaml;Pages\CartPage.xaml;Pages\ContentPageUser.xaml;Pages\ContentPageAdmin.xaml;Pages\ContentPageManager.xaml;Pages\LoginPage.xaml;Pages\ViewOrdersPage.xaml;
 
 False

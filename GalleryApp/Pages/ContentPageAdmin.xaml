@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GalleryApp.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="550" d:DesignWidth="1350"
+      d:DesignHeight="650" d:DesignWidth="1350"
       Title="Товары - администратор">
 
     <Grid>
@@ -117,8 +117,6 @@
 
                         <Image Grid.Column="0"
                        Margin="10"
-                       Width="230"
-                       Height="300"
                        Stretch="UniformToFill">
                             <Image.Source>
                                 <Binding Path="ProductPhoto">
