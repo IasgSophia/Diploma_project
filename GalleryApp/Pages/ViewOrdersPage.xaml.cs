@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Word = Microsoft.Office.Interop.Word;
-using System.Runtime.InteropServices;
 
 namespace GalleryApp.Pages
 {
@@ -32,30 +31,41 @@ namespace GalleryApp.Pages
         {
             var context = gallerydatabaseEntities.GetContext();
 
-            var orders = context.Order
+            var rawOrders = context.Order
                 .Join(context.Lamp,
-                    o => o.Id,
-                    a => a.Id,
-                    (o, a) => new { o, a })
+                    order => order.IdLamp,
+                    lamp => lamp.Id,
+                    (order, lamp) => new { order, lamp })
                 .Join(context.Users,
-                    orderLamp => orderLamp.o.IdUser,
-                    u => u.Id,
-                    (orderLamp, u) => new
-                    {
-                        orderLamp.o.Id,
-                        orderLamp.o.Adress,
-                        orderLamp.o.Comment,
-                        ArtTitle = orderLamp.a.ModelName,
-                        ArtAuthor = orderLamp.a.Manufacturer,
-                        UserName = u.FirstName + " " + u.LastName,
-                        OrderEntity = orderLamp.o
-                    })
-                .ToList();
+                    combined => combined.order.IdUser,
+                    user => user.Id,
+                    (combined, user) => new { combined.order, combined.lamp, user })
+                .Join(context.ShippingType,
+                    combined => combined.order.IdShippingType,
+                    shipping => shipping.Id,
+                    (combined, shipping) => new { combined.order, combined.lamp, combined.user, shipping })
+                .ToList(); 
+
+            var orders = rawOrders.Select(item => new
+            {
+                FullName = $"{item.user.LastName} {GetInitial(item.user.FirstName)}{GetInitial(item.user.MiddleName)}",
+                Comment = string.IsNullOrWhiteSpace(item.order.Comment) ? "Комментариев к заказу нет" : item.order.Comment,
+                Address = item.order.Adress,
+                ShippingTypeName = item.shipping.Name,
+                LampModel = item.lamp.ModelName,
+                OrderEntity = item.order
+            }).ToList();
 
             dataGridOrders.ItemsSource = orders;
-
             CountLabel.Content = $"Всего заказов: {orders.Count}";
         }
+
+        private string GetInitial(string name)
+        {
+            return string.IsNullOrWhiteSpace(name) ? "" : $" {name[0]}.";
+        }
+
+
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -112,5 +122,33 @@ namespace GalleryApp.Pages
             }
         }
 
+        private void DeleteOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedOrder = button?.CommandParameter as Order;
+
+            if (selectedOrder == null)
+            {
+                MessageBox.Show("Не удалось определить заказ для удаления.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var result = MessageBox.Show("Вы уверены, что хотите удалить этот заказ?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            try
+            {
+                var context = gallerydatabaseEntities.GetContext();
+                context.Order.Remove(selectedOrder);
+                context.SaveChanges();
+                MessageBox.Show("Заказ успешно удалён.", "Удаление", MessageBoxButton.OK, MessageBoxImage.Information);
+                LoadOrders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении заказа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

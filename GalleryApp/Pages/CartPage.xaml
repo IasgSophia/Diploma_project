@@ -7,47 +7,75 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Корзина">
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="CartListView" Grid.Row="0" Margin="0,0,0,10" ItemsSource="{Binding CartItems}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="{Binding title}" Width="200"/>
-                        <TextBlock Text="{Binding author}" Width="200"/>
-                        <TextBlock Text="{Binding genre}" Width="200"/>
-                        <Image Width="100" Height="100">
-                            <Image.Source>
-                                <Binding Path="ProductPhoto">
-                                    <Binding.TargetNullValue>
-                                        <BitmapImage UriSource="/Resources/smallcrow.png"/>
-                                    </Binding.TargetNullValue>
-                                </Binding>
-                            </Image.Source>
-                        </Image>
-                        <TextBlock Text="{Binding price}" Width="100"/>
-                        <Button Content="Удалить" Click="RemoveButton_Click" CommandParameter="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="CartListView" Margin="0,0,0,10" ItemsSource="{Binding CartItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <Label x:Name="UserInfoLabel" Content="ФИО пользователя" FontSize="16" Margin="0,5" Visibility="Hidden"/>
+                            <Image Grid.Column="0"
+                                   Margin="10"
+                                   Width="130"
+                                   Height="100"
+                                   Stretch="UniformToFill">
+                                <Image.Source>
+                                    <Binding Path="ProductPhoto">
+                                        <Binding.TargetNullValue>
+                                            <BitmapImage UriSource="/Resources/smallcrow.png"/>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <StackPanel Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Margin="10,0">
+                                <TextBlock Text="{Binding ModelName, StringFormat='Название: {0}'}"/>
+                                <TextBlock Text="{Binding Manufacturer.Name, StringFormat='Производитель: {0}'}"/>
+                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0} ₽'}"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="2"
+                                    Content="Удалить"
+                                    Width="80"
+                                    Margin="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Click="RemoveButton_Click"
+                                    CommandParameter="{Binding}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,5">
+            <Label x:Name="UserInfoLabel" Content="ФИО пользователя" FontSize="16" Visibility="Hidden"/>
             <Label Content="Комментарий" />
-            <TextBox x:Name="CommentTextBox"  Margin="0,5" TextWrapping="Wrap"/>
+            <TextBox x:Name="CommentTextBox" Margin="0,5" TextWrapping="Wrap"/>
             <Label Content="Адрес доставки" />
-            <TextBox x:Name="AddressTextBox"  Margin="0,5"/>
+            <TextBox x:Name="AddressTextBox" Margin="0,5"/>
             <Label Content="Тип доставки" />
             <ComboBox x:Name="ShippingTypeComboBox" Margin="0,5"
-                DisplayMemberPath="Name" SelectedValuePath="Id"/>
-            <Button Content="Оформить заказ" Click="SubmitOrderButton_Click"  Margin="0,10"/>
+                      DisplayMemberPath="Name" SelectedValuePath="Id"/>
         </StackPanel>
 
-        <Button Content="Назад" Click="BackButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,10,0,0"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
+            <Button Content="Назад" Click="BackButton_Click" HorizontalAlignment="Left"/>
+            <Button Content="Оформить заказ" Click="SubmitOrderButton_Click" HorizontalAlignment="Right" Margin="10,0,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>

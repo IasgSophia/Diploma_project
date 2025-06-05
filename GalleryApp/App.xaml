@@ -52,32 +52,71 @@
 
         <Style TargetType="ComboBox">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-MediumItalic}"/>
-            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="90"/>
             <Setter Property="MinHeight" Value="20"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <Border Background="{TemplateBinding Background}" 
-                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                    BorderThickness="{TemplateBinding BorderThickness}" 
-                                    CornerRadius="12"/>
-                            <ContentPresenter x:Name="ContentSite"
-                                              Content="{TemplateBinding SelectionBoxItem}"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"
-                                              Margin="12,4"/>
-                        </Grid>
+                        <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="12">
+                            <Grid>
+                                <ToggleButton Name="ToggleButton"
+                                      Grid.Column="2"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,6,0">
+                                    <Path Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="Black"
+                                  Width="8"
+                                  Height="4"/>
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="6,0,25,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left" />
+                                <Popup Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Fade">
+                                    <Border Background="White"
+                                    BorderBrush="Black"
+                                    BorderThickness="2"
+                                    CornerRadius="6">
+                                        <ScrollViewer Margin="4"
+                                              SnapsToDevicePixels="True">
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="{StaticResource IBMPlexSerif-BoldItalic}"/>
             <Setter Property="FontSize" Value="12"/>

@@ -8,59 +8,126 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Добавление аккаунтов">
 
-    <Grid Margin="10">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="10">
-                <Label Content="Имя" />
-                <TextBox x:Name="FirstNameTextBox" Width="200" Margin="0,5" />
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <Label Content="Отчество" />
-                <TextBox x:Name="MiddleNameTextBox" Width="200" Margin="0,5" />
+                <StackPanel Grid.Column="0" Margin="10">
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Имя:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="FirstNameTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Фамилия" />
-                <TextBox x:Name="LastNameTextBox" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Фамилия:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="LastNameTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Почта" />
-                <TextBox x:Name="MailTextBox" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Телефон:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="PhoneTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Телефон" />
-                <TextBox x:Name="PhoneTextBox" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Пароль:" VerticalAlignment="Center"/>
+                        <PasswordBox x:Name="PasswordBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Логин" />
-                <TextBox x:Name="LoginTextBox" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Роль:" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="RoleComboBox" Grid.Column="1" Width="150"/>
+                    </Grid>
+                </StackPanel>
 
-                <Label Content="Пароль" />
-                <PasswordBox x:Name="PasswordBox" Width="200" Margin="0,5" />
+                <StackPanel Grid.Column="1" Margin="10">
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Отчество:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="MiddleNameTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Дата рождения" />
-                <DatePicker x:Name="BirthDatePicker" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Почта:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="MailTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Роль" />
-                <ComboBox x:Name="RoleComboBox" Width="200" Margin="0,5" />
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Логин:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="LoginTextBox" Grid.Column="1" Width="150"/>
+                    </Grid>
 
-                <Label Content="Позиция" />
-                <ComboBox x:Name="PositionComboBox" Width="200" Margin="0,5" />
-            </StackPanel>
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Дата рождения:" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="BirthDatePicker" Grid.Column="1" Width="150"/>
+                    </Grid>
+
+                    <Grid Margin="0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Позиция:" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="PositionComboBox" Grid.Column="1" Width="150"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
 
-        <Button x:Name="SaveUserButton"
-                Grid.Row="1"
-                Content="Сохранить пользователя"
-                Click="SaveUserButton_Click"
-                HorizontalAlignment="Right"
-                Margin="10"
-                Padding="10,5"/>
-        <Button x:Name="BackButton"
-        Grid.Row="1"
-        Content="Назад"
-        Click="BackButton_Click"
-        HorizontalAlignment="Left"
-        Margin="10"
-        Padding="10,5"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button x:Name="BackButton"
+                    Content="Назад"
+                    Click="BackButton_Click"
+                    Margin="5"
+                    Padding="10,5"/>
+            <Button x:Name="SaveUserButton"
+                    Content="Сохранить пользователя"
+                    Click="SaveUserButton_Click"
+                    Margin="5"
+                    Padding="10,5"/>
+        </StackPanel>
     </Grid>
 </Page>

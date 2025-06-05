@@ -10,6 +10,7 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            
             <Label Content="Логин:"></Label>
             <TextBox x:Name="LoginTextBox"></TextBox>
             <Label Content="Пароль:"></Label>

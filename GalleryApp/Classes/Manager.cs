@@ -28,53 +28,54 @@ namespace GalleryApp.Classes
             Data.gallerydatabaseEntities.GetContext().SaveChanges();
         }
         public static List<Lamp> GetCartForCurrentUser()
-        {
-            if (CurrentUser == null)
-                throw new InvalidOperationException("Пользователь не авторизован.");
+{
+    if (CurrentUser == null)
+        throw new InvalidOperationException("Пользователь не авторизован.");
 
-            var context = gallerydatabaseEntities.GetContext();
-            var cartItems = context.Order
-                .Where(o => o.IdUser == CurrentUser.Id)
-                .Select(o => o.Lamp)
-                .Distinct()
-                .ToList();
+    var context = gallerydatabaseEntities.GetContext();
 
-            CartItems.Clear();
-            CartItems.AddRange(cartItems);
+    var lampIds = context.Order
+        .Where(o => o.IdUser == CurrentUser.Id)
+        .Select(o => o.IdLamp)
+        .Distinct()
+        .ToList();
 
-            return CartItems;
-        }
+    var cartItems = context.Lamp
+        .Where(l => lampIds.Contains(l.Id))
+        .ToList();
+
+    CartItems.Clear();
+    CartItems.AddRange(cartItems);
+
+    return CartItems;
+}
+
         public static void AddToCart(Lamp lamp)
         {
             if (lamp == null)
-                throw new ArgumentNullException(nameof(lamp), "Невозможно добавить пустой товар в корзину");
+                throw new ArgumentNullException(nameof(lamp));
 
             if (CurrentUser == null)
                 throw new InvalidOperationException("Пользователь не авторизован.");
 
             var context = gallerydatabaseEntities.GetContext();
 
-            bool alreadyExists = context.Order
-                .Any(o => o.IdUser == CurrentUser.Id && o.IdLamp == lamp.Id);
-
-
-            if (!alreadyExists)
+            // Создаём новую запись в заказе
+            var order = new Order
             {
-                var order = new Order
-                {
-                    IdUser = CurrentUser.Id,
-                    IdLamp = lamp.Id,
-                    Adress = "Не указано",
-                    IdShippingType = 1,
-                    Comment = "Комментарий по заказу"
-                };
+                IdUser = CurrentUser.Id,
+                IdLamp = lamp.Id,
+                Adress = "Не указано", // можно будет потом изменить
+                IdShippingType = 1,    // можно изменить, если есть UI
+                Comment = "Добавлено в корзину"
+            };
 
-                context.Order.Add(order);
-                context.SaveChanges();
+            context.Order.Add(order);
+            context.SaveChanges();
 
-                CartItems.Add(lamp);
-            }
+            CartItems.Add(lamp);
         }
+
         public static void RemoveFromCart(int lampId)
         {
             if (CurrentUser == null)

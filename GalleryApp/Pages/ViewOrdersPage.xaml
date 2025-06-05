@@ -22,45 +22,64 @@
                FontSize="20"
                FontWeight="Bold" />
 
-        <ListView x:Name="dataGridOrders" Grid.Row="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="450" MinWidth="800">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition MinWidth="100" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition MinWidth="250" />
-                            </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="dataGridOrders"
+                      MinWidth="800"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2.5*" />
+                                </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding LampModel, StringFormat='Модель лампы: {0}'}" />
-                                <TextBlock Text="{Binding ShippingTypeName, StringFormat='Тип доставки: {0}'}" />
-                            </StackPanel>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding LampModel, StringFormat='Модель лампы: {0}'}" />
+                                    <TextBlock Text="{Binding ShippingTypeName, StringFormat='Тип доставки: {0}'}" />
+                                </StackPanel>
 
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Adress, StringFormat='Адрес: {0}'}" TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding Comment, StringFormat='Комментарий: {0}'}" TextWrapping="Wrap" />
-                            </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Adress, StringFormat='Адрес: {0}'}" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding Comment, StringFormat='Комментарий: {0}'}" TextWrapping="Wrap" />
+                                </StackPanel>
 
-                            <Button Grid.Column="2"
-                                    Content="Оформить документ"
-                                    Padding="5"
-                                    Margin="5"
-                                    Click="GenerateDocumentButton_Click"
-                                    CommandParameter="{Binding OrderEntity}" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <Button Content="Оформить документ"
+                                            Padding="5" Margin="5"
+                                            Click="GenerateDocumentButton_Click"
+                                            CommandParameter="{Binding OrderEntity}" />
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal"  Margin="10">
-            <Label x:Name="CountLabel" Content="Всего заказов: 0" VerticalAlignment="Center" FontWeight="Bold" />
-            <Button Content="Назад" VerticalAlignment="Center" HorizontalAlignment="Left" Click="BackButton_Click"/>
+                                    <Button Content="Удалить"
+                                            Padding="5" Margin="5"
+                                            Background="IndianRed" Foreground="White"
+                                            Click="DeleteOrderButton_Click"
+                                            CommandParameter="{Binding OrderEntity}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10,0">
+            <Label x:Name="CountLabel"
+                   Content="Всего заказов: 0"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold" />
+
+            <Button Margin="10,0,0,0"
+                    Content="Назад"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Click="BackButton_Click"/>
+
             <Button Content="Оформить все документы" 
-                    VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Tag="{Binding}" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
                     Click="GenerateAllInvoicesButton_Click"/>
         </StackPanel>
     </Grid>

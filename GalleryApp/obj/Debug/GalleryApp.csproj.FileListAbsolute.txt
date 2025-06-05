@@ -78,3 +78,123 @@ C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_proj
 C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
 C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.exe
 C:\Users\lisav\Desktop\Новая папка\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.pdb
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe.config
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.pdb
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.dll
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.xml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.AssemblyReference.cache
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_Content.g.cs
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.cache
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.lref
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.baml
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.g.resources
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.Properties.Resources.resources
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.GenerateResource.cache
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.cache
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.exe
+C:\Users\lisav\Downloads\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.pdb
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe.config
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.pdb
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.dll
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.xml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.AssemblyReference.cache
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\App.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_Content.g.cs
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.cache
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.lref
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.baml
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.g.resources
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.Properties.Resources.resources
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.GenerateResource.cache
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.cache
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.exe
+C:\Users\Sophia\Downloads\Diploma_project-master (1)\Diploma_project-master\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.pdb
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe.config
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.exe
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\GalleryApp.pdb
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.dll
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.xml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.resources.dll
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.AssemblyReference.cache
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\App.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditProductPage.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\App.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_Content.g.cs
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.cache
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp_MarkupCompile.lref
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\MainWindow.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\AddEditAccountsPage.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\CartPage.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageUser.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageAdmin.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ContentPageManager.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\LoginPage.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\Pages\ViewOrdersPage.baml
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.g.resources
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.Properties.Resources.resources
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.GenerateResource.cache
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CoreCompileInputs.cache
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.csproj.CopyComplete
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.exe
+C:\diploma\GalleryApp\Diploma_project-master (1)\самый хороший вариант\Diploma_project-master\GalleryApp\obj\Debug\GalleryApp.pdb

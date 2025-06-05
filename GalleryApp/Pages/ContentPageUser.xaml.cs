@@ -18,9 +18,12 @@ namespace GalleryApp.Pages
         public ContentPageUser()
         {
             InitializeComponent();
-            InitializeComboBoxes();
+            /*InitializeComboBoxes();*/
             LoadDefaultImage();
             InitializePage();
+            LampTypeComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().LampType.ToList();
+            ManufacturerComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().MountingType.ToList();
+            MountingTypeComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().Manufacturer.ToList();
         }
 
         private void LoadDefaultImage()
@@ -46,54 +49,15 @@ namespace GalleryApp.Pages
 
         private List<Lamp> SortLamps(List<Lamp> lamps)
         {
-            if (SortUpRadioButton.IsChecked == true)
+            if (SortUpRadioButton?.IsChecked == true)
                 return lamps.OrderBy(l => l.Price).ToList();
 
-            if (SortDownRadioButton.IsChecked == true)
+            if (SortDownRadioButton?.IsChecked == true)
                 return lamps.OrderByDescending(l => l.Price).ToList();
 
             return lamps;
         }
 
-        private void InitializeComboBoxes()
-        {
-            var context = gallerydatabaseEntities.GetContext();
-
-            // Подгружаем список из БД
-            var lampTypes = context.LampType.OrderBy(x => x.Name).ToList();
-            var mountingTypes = context.MountingType.OrderBy(x => x.Name).ToList();
-            var manufacturers = context.Manufacturer.OrderBy(x => x.Name).ToList();
-
-            // Инициализируем ComboBox-ы
-            InitializeComboBox(LampTypeComboBox, lampTypes, "Все типы ламп");
-            InitializeComboBox(MountingTypeComboBox, mountingTypes, "Все типы креплений");
-            InitializeComboBox(ManufacturerComboBox, manufacturers, "Все производители");
-        }
-
-        private void InitializeComboBox<T>(ComboBox comboBox, List<T> items, string defaultName) where T : class, new()
-        {
-            var idProp = typeof(T).GetProperty("Id");
-            var nameProp = typeof(T).GetProperty("Name");
-
-            if (idProp == null || nameProp == null)
-            {
-                throw new InvalidOperationException($"Класс {typeof(T).Name} должен содержать свойства Id и Name.");
-            }
-
-            // Создаём элемент "Все ..."
-            var defaultItem = new T();
-            idProp.SetValue(defaultItem, 0); // Id = 0 — значит "не выбран фильтр"
-            nameProp.SetValue(defaultItem, defaultName);
-
-            // Добавляем "все" и остальные
-            var itemList = new List<T> { defaultItem };
-            itemList.AddRange(items);
-
-            comboBox.ItemsSource = itemList;
-            comboBox.DisplayMemberPath = "Name";
-            comboBox.SelectedValuePath = "Id";
-            comboBox.SelectedValue = 0; // по умолчанию — "все"
-        }
 
 
 
@@ -120,7 +84,6 @@ namespace GalleryApp.Pages
                 SetDefaultImages(lamps);
                 ProductListView.ItemsSource = lamps;
 
-                // ComboBox уже инициализированы в InitializeComboBoxes, просто обновим метки количества
                 CountOfLabel.Content = $"{lamps.Count}/{context.Lamp.Count()}";
             }
             catch (Exception ex)
@@ -203,10 +166,18 @@ namespace GalleryApp.Pages
             var selectedLamp = (sender as Button)?.DataContext as Data.Lamp;
             if (selectedLamp != null)
             {
-                Manager.CartItems.Add(selectedLamp);
-                MessageBox.Show("Товар добавлен в корзину!");
+                try
+                {
+                    Manager.AddToCart(selectedLamp);
+                    MessageBox.Show("Товар добавлен в корзину!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при добавлении в корзину: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
+
 
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

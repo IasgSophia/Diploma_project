@@ -85,6 +85,7 @@ namespace GalleryApp.Pages
                     var newOrder = new Order
                     {
                         IdUser = Manager.CurrentUser.Id,
+                        IdLamp = lamp.Id, 
                         Comment = CommentTextBox.Text,
                         Adress = AddressTextBox.Text,
                         IdShippingType = selectedShippingType.Id
@@ -92,6 +93,7 @@ namespace GalleryApp.Pages
 
                     context.Order.Add(newOrder);
                 }
+
 
                 context.SaveChanges();
                 MessageBox.Show("Заказ оформлен успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);

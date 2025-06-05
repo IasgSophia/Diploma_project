@@ -1,110 +1,108 @@
 ﻿<Page x:Class="GalleryApp.Pages.AddEditProductPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Add/Edit Lamp">
+      Title="Редактирование/добавление товаров">
 
-    <Grid Margin="10">
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="300"/>
-                </Grid.ColumnDefinitions>
+            <StackPanel>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="Id:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" IsReadOnly="True" IsEnabled="False" Margin="5" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Content="Model Name:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="ModelNameTextBox" Grid.Row="1" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название модели:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="ModelNameTextBox" Margin="5"/>
 
-                <Label Content="Manufacturer:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox x:Name="ManufacturerComboBox" Grid.Row="2" Grid.Column="1" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5" />
-                
-                <Label Content="Lamp Type:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox x:Name="LampTypeComboBox" Grid.Row="3" Grid.Column="1" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="Производитель:" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" x:Name="ManufacturerComboBox" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5"/>
 
-                <Label Content="Power (W):" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="PowerTextBox" Grid.Row="4" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="Тип лампы:" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" x:Name="LampTypeComboBox" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5"/>
 
-                <Label Content="Color Temperature (K):" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="ColorTempTextBox" Grid.Row="5" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="Сила (W):" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="PowerTextBox" Margin="5"/>
 
-                <Label Content="CRI:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="CRITextBox" Grid.Row="6" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="Цветовая температура (K):" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="ColorTempTextBox" Margin="5"/>
 
-                <Label Content="Luminous Flux (lm):" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="LumenTextBox" Grid.Row="7" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="CRI:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="5" Grid.Column="1" x:Name="CRITextBox" Margin="5"/>
 
-                <Label Content="Beam Angle (°):" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="BeamAngleTextBox" Grid.Row="8" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="Световой поток (lm):" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="LumenTextBox" Margin="5"/>
 
-                <Label Content="UV Protection:" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" />
-                <CheckBox x:Name="UVCheckBox" Grid.Row="9" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="7" Grid.Column="0" Content="Угол луча (°):" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="7" Grid.Column="1" x:Name="BeamAngleTextBox" Margin="5"/>
 
-                <Label Content="IR Protection:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" />
-                <CheckBox x:Name="IRCheckBox" Grid.Row="10" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="0" Grid.Column="2" Content="UV Защита:" VerticalAlignment="Center" Margin="5"/>
+                    <CheckBox Grid.Row="0" Grid.Column="3" x:Name="UVCheckBox" Margin="5" VerticalAlignment="Center"/>
 
-                <Label Content="Dimmable:" Grid.Row="11" Grid.Column="0" VerticalAlignment="Center" />
-                <CheckBox x:Name="DimmableCheckBox" Grid.Row="11" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="1" Grid.Column="2" Content="IR Защита:" VerticalAlignment="Center" Margin="5"/>
+                    <CheckBox Grid.Row="1" Grid.Column="3" x:Name="IRCheckBox" Margin="5" VerticalAlignment="Center"/>
 
-                <Label Content="Mounting Type:" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" />
-                <ComboBox x:Name="MountingTypeComboBox" Grid.Row="12" Grid.Column="1" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5" />
+                    <Label Grid.Row="2" Grid.Column="2" Content="Затемняемость:" VerticalAlignment="Center" Margin="5"/>
+                    <CheckBox Grid.Row="2" Grid.Column="3" x:Name="DimmableCheckBox" Margin="5" VerticalAlignment="Center"/>
 
-                <Label Content="Voltage (V):" Grid.Row="13" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="VoltageTextBox" Grid.Row="13" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="3" Grid.Column="2" Content="Тип монтажа:" VerticalAlignment="Center" Margin="5"/>
+                    <ComboBox Grid.Row="3" Grid.Column="3" x:Name="MountingTypeComboBox" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="5"/>
 
-                <Label Content="Price:" Grid.Row="14" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="PriceTextBox" Grid.Row="14" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="4" Grid.Column="2" Content="Напряжение (V):" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="4" Grid.Column="3" x:Name="VoltageTextBox" Margin="5"/>
 
-                <Label Content="Stock Quantity:" Grid.Row="15" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="QuantityTextBox" Grid.Row="15" Grid.Column="1" Margin="5" />
+                    <Label Grid.Row="5" Grid.Column="2" Content="Цена:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="5" Grid.Column="3" x:Name="PriceTextBox" Margin="5"/>
 
-                <Label Content="Description:" Grid.Row="16" Grid.Column="0" VerticalAlignment="Top" Margin="0,5,0,0" />
-                <TextBox x:Name="DescriptionTextBox" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="3"
-                         Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5" />
+                    <Label Grid.Row="6" Grid.Column="2" Content="Количество:" VerticalAlignment="Center" Margin="5"/>
+                    <TextBox Grid.Row="6" Grid.Column="3" x:Name="QuantityTextBox" Margin="5"/>
+                </Grid>
 
-                <Label Content="Photo Filename:" Grid.Row="17" Grid.Column="0" VerticalAlignment="Center" />
-                <TextBox x:Name="PhotoNameTextBox" Grid.Row="17" Grid.Column="1" Margin="5" IsReadOnly="True" />
+                <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <StackPanel Width="400">
+                        <Label Content="Описание:"/>
+                        <TextBox x:Name="DescriptionTextBox" Height="100" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                    </StackPanel>
 
-                <Label Content="Product Image:" Grid.Row="18" Grid.Column="0" VerticalAlignment="Top" Margin="0,5,0,0" />
-                <Border Grid.Row="18" Grid.Column="1" Width="200" Height="200" BorderBrush="Gray" BorderThickness="1" Margin="5">
-                    <Image x:Name="PhotoImage" Stretch="Uniform" MouseDown="PhotoImage_MouseDown" Cursor="Hand" />
-                </Border>
-            </Grid>
+                    <StackPanel Margin="20,0,0,0">
+                        <Label Content="Изображение товара:"/>
+                        <Border Width="200" Height="200" BorderBrush="Gray" BorderThickness="1" Margin="0,5,0,0">
+                            <Image x:Name="PhotoImage" Stretch="Uniform" MouseDown="PhotoImage_MouseDown" Cursor="Hand"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" >
-            <Button x:Name="BackButton" Content="Назад"  Click="BackButton_Click" Margin="5,0,5,0"/>
-            <Button x:Name="SaveButton" Content="Сохранить"  Click="SaveButton_Click" Margin="5,0,0,0"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button x:Name="BackButton" Content="Назад" Click="BackButton_Click" Margin="5"/>
+            <Button x:Name="SaveButton" Content="Сохранить" Click="SaveButton_Click" Margin="5"/>
         </StackPanel>
     </Grid>
 </Page>

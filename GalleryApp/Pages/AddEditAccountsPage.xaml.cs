@@ -10,10 +10,32 @@ namespace GalleryApp.Pages
 {
     public partial class AddEditAccountsPage : Page
     {
-        public AddEditAccountsPage()
+        private Users CurrentUser;
+        private bool IsEditMode = false;
+
+        public AddEditAccountsPage(Users selectedUser = null)
         {
             InitializeComponent();
+
+            if (selectedUser != null)
+            {
+                CurrentUser = selectedUser;
+                IsEditMode = true;
+            }
+            else
+            {
+                CurrentUser = new Users();
+                IsEditMode = false;
+            }
+
+            DataContext = CurrentUser;
+            Init();
+        }
+
+        private void Init()
+        {
             var context = gallerydatabaseEntities.GetContext();
+
             RoleComboBox.ItemsSource = context.Role.ToList();
             RoleComboBox.DisplayMemberPath = "Name";
             RoleComboBox.SelectedValuePath = "Id";
@@ -21,85 +43,115 @@ namespace GalleryApp.Pages
             PositionComboBox.ItemsSource = context.Position.ToList();
             PositionComboBox.DisplayMemberPath = "Name";
             PositionComboBox.SelectedValuePath = "Id";
+
+            if (IsEditMode)
+            {
+                var worker = context.WorkerInfo.FirstOrDefault(w => w.Id == CurrentUser.UserType);
+                if (worker != null)
+                {
+                    RoleComboBox.SelectedValue = worker.IdRole;
+                    PositionComboBox.SelectedValue = worker.IdPosition;
+                }
+
+                FirstNameTextBox.Text = CurrentUser.FirstName;
+                MiddleNameTextBox.Text = CurrentUser.MiddleName;
+                LastNameTextBox.Text = CurrentUser.LastName;
+                MailTextBox.Text = CurrentUser.Mail;
+                PhoneTextBox.Text = CurrentUser.Phone;
+                BirthDatePicker.SelectedDate = CurrentUser.Birth;
+                LoginTextBox.Text = CurrentUser.Login;
+            }
         }
 
         private void SaveUserButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Проверка обязательных текстовых полей
-                if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(MailTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(PhoneTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(LoginTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(PasswordBox.Password))
-                {
-                    MessageBox.Show("Пожалуйста, заполните все обязательные поля (имя, фамилия, email, телефон, логин, пароль).",
-                                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                StringBuilder errors = new StringBuilder();
 
-                // Проверка выбора роли
+                if (string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+                    errors.AppendLine("Введите имя");
+                if (string.IsNullOrWhiteSpace(LastNameTextBox.Text))
+                    errors.AppendLine("Введите фамилию");
+                if (string.IsNullOrWhiteSpace(MailTextBox.Text))
+                    errors.AppendLine("Введите email");
+                if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
+                    errors.AppendLine("Введите телефон");
+                if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
+                    errors.AppendLine("Введите логин");
+                if (!IsEditMode && string.IsNullOrWhiteSpace(PasswordBox.Password))
+                    errors.AppendLine("Введите пароль");
                 if (RoleComboBox.SelectedValue == null)
-                {
-                    MessageBox.Show("Выберите роль пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Проверка выбора позиции
+                    errors.AppendLine("Выберите роль");
                 if (PositionComboBox.SelectedValue == null)
-                {
-                    MessageBox.Show("Выберите позицию пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Проверка выбора даты рождения
+                    errors.AppendLine("Выберите позицию");
                 if (BirthDatePicker.SelectedDate == null)
-                {
-                    MessageBox.Show("Выберите дату рождения.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                    errors.AppendLine("Выберите дату рождения");
 
                 var context = gallerydatabaseEntities.GetContext();
+                if (!IsEditMode && context.Users.Any(u => u.Login == LoginTextBox.Text))
+                    errors.AppendLine("Пользователь с таким логином уже существует");
 
-                if (context.Users.Any(u => u.Login == LoginTextBox.Text))
+                if (errors.Length > 0)
                 {
-                    MessageBox.Show("Пользователь с таким логином уже существует!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(errors.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                byte[] passwordBytes = Encoding.UTF8.GetBytes(PasswordBox.Password);
-                byte[] salt = PasswordHelper.GenerateSalt();
-                byte[] hashBytes = PasswordHelper.HashPassword(passwordBytes, salt);
+                var roleId = (int)RoleComboBox.SelectedValue;
+                var positionId = (int)PositionComboBox.SelectedValue;
+                WorkerInfo worker;
 
-                var workerInfo = new WorkerInfo
+                if (!IsEditMode)
                 {
-                    IdPosition = (int?)PositionComboBox.SelectedValue,
-                    IdRole = (int?)RoleComboBox.SelectedValue
-                };
+                    byte[] passwordBytes = Encoding.UTF8.GetBytes(PasswordBox.Password);
+                    byte[] salt = PasswordHelper.GenerateSalt();
+                    byte[] hashBytes = PasswordHelper.HashPassword(passwordBytes, salt);
 
-                context.WorkerInfo.Add(workerInfo);
-                context.SaveChanges();
+                    worker = new WorkerInfo
+                    {
+                        IdRole = roleId,
+                        IdPosition = positionId
+                    };
+                    context.WorkerInfo.Add(worker);
+                    context.SaveChanges();
 
-                var user = new Users
+                    CurrentUser = new Users
+                    {
+                        FirstName = FirstNameTextBox.Text,
+                        MiddleName = MiddleNameTextBox.Text,
+                        LastName = LastNameTextBox.Text,
+                        Mail = MailTextBox.Text,
+                        Phone = PhoneTextBox.Text,
+                        Birth = BirthDatePicker.SelectedDate,
+                        Login = LoginTextBox.Text,
+                        PasswordHash = hashBytes,
+                        PasswordSalt = salt,
+                        UserType = worker.Id
+                    };
+
+                    context.Users.Add(CurrentUser);
+                }
+                else
                 {
-                    FirstName = FirstNameTextBox.Text,
-                    MiddleName = MiddleNameTextBox.Text,
-                    LastName = LastNameTextBox.Text,
-                    Mail = MailTextBox.Text,
-                    Phone = PhoneTextBox.Text,
-                    Birth = BirthDatePicker.SelectedDate,
-                    Login = LoginTextBox.Text,
-                    PasswordHash = hashBytes,
-                    PasswordSalt = salt,
-                    UserType = workerInfo.Id
-                };
+                    worker = context.WorkerInfo.FirstOrDefault(w => w.Id == CurrentUser.UserType);
+                    if (worker != null)
+                    {
+                        worker.IdRole = roleId;
+                        worker.IdPosition = positionId;
+                    }
 
-                context.Users.Add(user);
+                    CurrentUser.FirstName = FirstNameTextBox.Text;
+                    CurrentUser.MiddleName = MiddleNameTextBox.Text;
+                    CurrentUser.LastName = LastNameTextBox.Text;
+                    CurrentUser.Mail = MailTextBox.Text;
+                    CurrentUser.Phone = PhoneTextBox.Text;
+                    CurrentUser.Birth = BirthDatePicker.SelectedDate;
+                    CurrentUser.Login = LoginTextBox.Text;
+                }
+
                 context.SaveChanges();
-
-                MessageBox.Show("Пользователь успешно добавлен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Пользователь успешно сохранён.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -107,7 +159,6 @@ namespace GalleryApp.Pages
                 MessageBox.Show("Ошибка при сохранении: " + message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -122,3 +173,4 @@ namespace GalleryApp.Pages
         }
     }
 }
+
