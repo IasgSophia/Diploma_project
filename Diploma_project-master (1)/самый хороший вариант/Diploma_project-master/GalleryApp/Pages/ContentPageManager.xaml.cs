@@ -18,14 +18,16 @@ namespace GalleryApp.Pages
         public ContentPageManager()
         {
             InitializeComponent();
+            Update();
             LoadDefaultImage();
             InitializePage();
             LampTypeComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().LampType.ToList().OrderBy(x => x.Name)
-    .ToList(); ;
+    .ToList(); 
             ManufacturerComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().MountingType.ToList().OrderBy(x => x.Name)
-    .ToList(); ;
+    .ToList(); 
             MountingTypeComboBox.ItemsSource = Data.gallerydatabaseEntities.GetContext().Manufacturer.ToList().OrderBy(x => x.Name)
-    .ToList(); ;
+    .ToList(); 
+
         }
 
         private void LoadDefaultImage()
@@ -179,6 +181,7 @@ namespace GalleryApp.Pages
             var selectedLamp = (sender as Button)?.DataContext as Lamp;
             if (selectedLamp != null)
                 Manager.MainFrame.Navigate(new Pages.AddEditProductPage(selectedLamp));
+            Update();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -223,6 +226,7 @@ namespace GalleryApp.Pages
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new Pages.AddEditProductPage(null));
+            Update();
         }
 
 
